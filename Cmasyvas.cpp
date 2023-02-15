@@ -31,7 +31,7 @@ void pildyk(studentukas &temp)
     } 
     cin.clear();
     cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    temp.pazymiukai=new int[paz_sk];
+    temp.pazymiukai=new int[MAX_PAZ];
 
     /* int pazymiuMasyvas[paz_sk];//laikinas masyvas 
     cout<<"iveskite  pazymius: ";
