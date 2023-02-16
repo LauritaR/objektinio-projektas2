@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <vector>
 #include <limits>
+#include <time.h>
 using std::cout;
 using std::cin;
 using std::endl;
