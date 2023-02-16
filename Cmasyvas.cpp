@@ -1,5 +1,5 @@
 #include "mylib.h"
-
+char ats; 
 int paz_sk;
 const int MAX_PAZ=10;
 
@@ -13,10 +13,14 @@ void pildyk(studentukas &temp)
 {
     cout<<"Iveskite varda ir pavarde: ";
     cin>>temp.vardas>>temp.pavarde;
-   
-   cout<<"Iveskite pazymius(iveskite neskaiciu, kad sustabdytumet): ";
-   int paz=0;
-   paz_sk=0;
+    cout<<"rankiinis ivedimas ar atsitiktiniai skaiciai?(r/a)";
+    cin>>ats;
+
+    if(ats=='r'||ats=='R')
+    {
+    cout<<"Iveskite pazymius(iveskite neskaiciu, kad sustabdytumet): ";
+    int paz=0;
+    paz_sk=0;
     int *pazymiuMasyvas=new int[MAX_PAZ];
     while(cin>>paz && paz_sk<MAX_PAZ)
     {
@@ -33,6 +37,36 @@ void pildyk(studentukas &temp)
     cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
     temp.pazymiukai=new int[MAX_PAZ];
 
+    copy(pazymiuMasyvas, pazymiuMasyvas+ paz_sk, temp.pazymiukai);//pradzia pabaiga ir kur prasideda irasymas 
+    delete[] pazymiuMasyvas;  
+
+    cout<<"iveskite egzamino pazymi: ";
+    cin>>temp.egzas; 
+    }
+    else if (ats=='a'||ats=='A')
+       {
+             paz_sk=0;
+    srand(time(NULL));
+    cout<<"kiek pazymiu noretumet gauti?(1-10)";
+    cin>>paz_sk; 
+    temp.pazymiukai=new int[MAX_PAZ];  
+    cout<<"Nd pazymiai: ";
+    for(int i=0;i<paz_sk;i++)
+    {
+        int n= (rand()%10)+1;
+        cout<<n<<" ";
+        temp.pazymiukai[i]=n; 
+    }
+    cout<<endl;
+      cout<<"Atsitiktinis egzamino pazymys: ";
+        int m=(rand()%10)+1;
+        cout<<m<<endl;
+        temp.egzas=m;
+    }
+}
+   
+
+   
     /* int pazymiuMasyvas[paz_sk];//laikinas masyvas 
     cout<<"iveskite  pazymius: ";
     for(int &i: pazymiuMasyvas)//nuoroda i elementus 
@@ -46,12 +80,8 @@ void pildyk(studentukas &temp)
     /*
     for(int j=0;j<paz_sk; j++) temp.pazymiukai[j]=pazymiuMasyvas[j]; 
     */
-    copy(pazymiuMasyvas, pazymiuMasyvas+ paz_sk, temp.pazymiukai);//pradzia pabaiga ir kur prasideda irasymas 
-    delete[] pazymiuMasyvas;
-
-    cout<<"iveskite egzamino pazymi: ";
-    cin>>temp.egzas; 
-}
+    
+  
 
 float vidurkis(studentukas &temp)
 {
@@ -87,12 +117,25 @@ float galutinisMed(studentukas &temp)
 }
 
 void spausdinimas(studentukas &temp)
-{
+{   
+    cout<<"Galutinis su vidurkiu ar mediana?(v/m)";
+    cin>>ats;
+    cout<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis"<<endl;
+    cout<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<endl;
     
     cout<<setw(20)<<left<<temp.vardas<<setw(20)<<left<<temp.pavarde; 
+   
+    if(ats=='v'||ats=='V')
+    {
+        cout<<setw(20)<<setprecision(3)<<galutinisVID(temp)<<endl;
+    }
+    else if(ats=='m'||ats=='M')
+    {
+        cout<<setw(20)<<setprecision(3)<<galutinisMed(temp)<<endl;
 
-    cout<<setw(20)<<setprecision(3)<<galutinisVID(temp)<<setw(20)<<setprecision(3)<<galutinisMed(temp)<<endl;
+    }
 
+   
    /*  
     for(int i=0; i<paz_sk;i++)
     {
@@ -108,7 +151,7 @@ int main()
 {
     studentukas *studentuMasyvas;
     int nr=1;
-    char ats; 
+  
     studentuMasyvas=new studentukas[nr]; 
 //cia ciklas
 do { 
@@ -128,9 +171,8 @@ do {
   
 }while(ats=='t'||ats=='T');
 
-cout<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis(vid)"<<setw(20)<<left<<"Galutinis(med)"<<endl;
-cout<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<endl;
-for(int i=0; i<nr;i++) spausdinimas(studentuMasyvas[i]);
+
+for(int i=0; i<nr-1;i++) spausdinimas(studentuMasyvas[i]);
 
 delete [] studentuMasyvas;
 }
