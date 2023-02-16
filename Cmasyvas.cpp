@@ -3,7 +3,8 @@ char ats;
 int paz_sk;
 const int MAX_PAZ=10;
 
-struct studentukas{
+struct studentukas
+{
     string vardas= " ", pavarde= " "; 
     int *pazymiukai=nullptr; 
     int egzas=0;
@@ -24,24 +25,40 @@ void pildyk(studentukas &temp)
     int *pazymiuMasyvas=new int[MAX_PAZ];
     while(cin>>paz && paz_sk<MAX_PAZ)
     {
-        if(paz<=10 && paz>=0){
+        if(paz<=10 && paz>=0)
+        {
             pazymiuMasyvas[paz_sk]=paz;
             paz_sk++;
         }
        
-        else{
+        else
+        {
             cout<<"please enter the number from 0 to 10: "; 
         }
     } 
     cin.clear();
     cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    temp.pazymiukai=new int[MAX_PAZ];
+    temp.pazymiukai=new int[paz_sk];
 
     copy(pazymiuMasyvas, pazymiuMasyvas+ paz_sk, temp.pazymiukai);//pradzia pabaiga ir kur prasideda irasymas 
     delete[] pazymiuMasyvas;  
 
     cout<<"iveskite egzamino pazymi: ";
-    cin>>temp.egzas; 
+    while(true)
+    {
+        if(cin>>temp.egzas && (temp.egzas>=1)&&(temp.egzas<=10))
+        {
+            break;
+        }
+        else
+        {
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+            cout<<"iveskite skaiciu nuo 1 iki 10"<<endl; 
+        }
+    }
+
+
     }
     else if (ats=='a'||ats=='A')
        {
