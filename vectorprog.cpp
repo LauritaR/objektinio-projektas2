@@ -13,17 +13,17 @@ void pildyk(studentukas &temp)
     cout<<"iveskite varda ir pavarde: ";
     cin>>temp.vardas>>temp.pavarde;
     
-    while((ats!="r"&& ats!="R")&&( ats!="a"&&ats!="A"))
+    while((ats!="r")&&( ats!="a"))
     {
         cout<<"Rankinis ivedimas ar atsitiktiniai skaiciai?(r/a)";
         cin>>ats;  
     }
 
-    if (ats=="r"||ats=="R")
+    if (ats=="r")
         {  
             int x=0;
             int paz_sk=0; 
-            cout<<"iveskite pazymius: ";
+            cout<<"iveskite pazymius(1-10): ";
         
         while(cin>>x)
         {
@@ -41,7 +41,7 @@ void pildyk(studentukas &temp)
         cin.clear(); 
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');//
 
-        cout<<"iveskite egzamino pazymi: ";
+        cout<<"iveskite egzamino pazymi(1-10): ";
         while(cin>>temp.egzas)
         {
             if((temp.egzas>=1)&&(temp.egzas<=10))
@@ -57,7 +57,7 @@ void pildyk(studentukas &temp)
       }
         }
 
-    else if(ats=="a"||ats=="A")
+    else if(ats=="a")
     {
         int size=0;
         srand(time(NULL));
@@ -145,13 +145,13 @@ void spausdinimas(studentukas &temp)
     cin>>ats; 
    }
     
-    if(ats=="v"||ats=="V")
+    if(ats=="v")
     {cout<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis(vid)"<<endl;
     cout<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<endl;
     cout<<setw(20)<<left<<temp.vardas<<setw(20)<<left<<temp.pavarde; 
     cout<<setw(20)<<fixed<<setprecision(2)<<galutinisVID(temp)<<endl;
     }
-    else if(ats=="m"||ats=="M")
+    else if(ats=="m")
     {
         cout<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis(med)"<<endl;
         cout<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<endl;
@@ -159,7 +159,7 @@ void spausdinimas(studentukas &temp)
         cout<<setw(20)<<fixed<<setprecision(2)<<galutinisMed(temp)<<endl;
 
     }
-    else if(ats=="a"||ats=="A")
+    else if(ats=="a")
     {
         cout<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis(vid)"<<setw(20)<<left<<"Galutinis(med)"<<endl;
         cout<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<endl;
@@ -183,8 +183,13 @@ int main()
         laikinas.pazymiukai.clear();
         cout<<"Ar norite ivesti informacija apie kitus studentus?(t/n)?";
         cin>>kart;
+        while((ats!="t")&&(ats!="n"))
+    {
+        cout<<"t-prideti dar studenta, n-baigti ivedima"<<endl;
+        cin>>ats;
+    }
        
-    }while(kart=='t'||kart=='T');
+    }while(kart=='t');
 
     for(auto &i: mas)
     {
