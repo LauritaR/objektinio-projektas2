@@ -1,52 +1,97 @@
 #include "mylib.h"
-char ats; 
-int paz_sk;
-const int MAX_PAZ=10;
+string ats; 
+int X=1;
 
 struct studentukas
 {
     string vardas= " ", pavarde= " "; 
     int *pazymiukai=nullptr; 
     int egzas=0;
+    int paz_sk=0;
 };
 
 void pildyk(studentukas &temp)
 {
     cout<<"Iveskite varda ir pavarde: ";
     cin>>temp.vardas>>temp.pavarde;
-    cout<<"rankiinis ivedimas ar atsitiktiniai skaiciai?(r/a)";
-    cin>>ats;
 
-    if(ats=='r'||ats=='R')
+     while((ats!="r")&&( ats!="a"))
     {
-    cout<<"Iveskite pazymius(iveskite neskaiciu, kad sustabdytumet): ";
-    int paz=0;
-    paz_sk=0;
-    int *pazymiuMasyvas=new int[MAX_PAZ];
-    while(cin>>paz && paz_sk<MAX_PAZ)
-    {
-        if(paz<=10 && paz>=0)
-        {
-            pazymiuMasyvas[paz_sk]=paz;
-            paz_sk++;
-        }
+        cout<<"Rankinis ivedimas ar atsitiktiniai skaiciai?(r/a)";
+        cin>>ats;  
        
+    }
+    if(ats=="r")
+    {
+    cout<<"Iveskite pazymius(1-10)(iveskite simboli arba raide sustabdyti): ";
+    int in=0, d=1, paz=0;//indeksas,dydis, pazymis
+    int *pazymiuMasyvas=new int[d];
+    
+    while(cin>>paz)
+    {
+        if(d==1)
+        {
+            while(true)
+            {
+                if((paz>=1)&&(paz<=10))
+                {
+                pazymiuMasyvas[in]=paz;
+                d++;
+                int* naujasPazMasyvas= new int[d];
+                copy(pazymiuMasyvas,pazymiuMasyvas+1,naujasPazMasyvas);
+                delete[]pazymiuMasyvas;
+                pazymiuMasyvas=naujasPazMasyvas;
+                naujasPazMasyvas=NULL;
+                break;
+                }
+                else
+                { 
+                cin.clear();
+                cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+                cout<<"iveskite skaiciu nuo 1 iki 10"<<endl; 
+                cin>>paz;
+                }
+            }
+        }
         else
         {
-            cout<<"please enter the number from 0 to 10: "; 
+            while(true)
+            {
+                if(paz>=0 && paz<=10)
+                {
+                    d++;
+                    in++;
+                    pazymiuMasyvas[in]=paz;
+                    int* naujasPazMasyvas= new int[d];
+                    copy(pazymiuMasyvas,pazymiuMasyvas+(d-1),naujasPazMasyvas);
+                    delete[]pazymiuMasyvas;
+                    pazymiuMasyvas=naujasPazMasyvas;
+                    naujasPazMasyvas=NULL;
+                    break; 
+                }
+                else
+                {
+                    cin.clear();
+                    cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+                    cout<<"iveskite skaiciu nuo 1 iki 10"<<endl; 
+                    cin>>paz;
+                }
+            }
         }
-    } 
+        
+    }
+    temp.pazymiukai=pazymiuMasyvas;
+    temp.paz_sk=d-1;
+    
+    pazymiuMasyvas=NULL;
+    
     cin.clear();
     cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    temp.pazymiukai=new int[paz_sk];
-
-    copy(pazymiuMasyvas, pazymiuMasyvas+ paz_sk, temp.pazymiukai);//pradzia pabaiga ir kur prasideda irasymas 
-    delete[] pazymiuMasyvas;  
 
     cout<<"iveskite egzamino pazymi: ";
-    while(true)
+    while(cin>>temp.egzas)
     {
-        if(cin>>temp.egzas && (temp.egzas>=1)&&(temp.egzas<=10))
+        if((temp.egzas>=1)&&(temp.egzas<=10))
         {
             break;
         }
@@ -57,72 +102,77 @@ void pildyk(studentukas &temp)
             cout<<"iveskite skaiciu nuo 1 iki 10"<<endl; 
         }
     }
-
-
+    cin.clear();
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
-    else if (ats=='a'||ats=='A')
-       {
-             paz_sk=0;
-    srand(time(NULL));
-    cout<<"kiek pazymiu noretumet gauti?(1-10)";
-    cin>>paz_sk; 
-    temp.pazymiukai=new int[MAX_PAZ];  
-    cout<<"Nd pazymiai: ";
-    for(int i=0;i<paz_sk;i++)
-    {
+
+    else if (ats=="a")
+       { 
+        srand(time(NULL));
+        
+        cout<<"kiek pazymiu noretumet gauti?";
+        cin>>temp.paz_sk; 
+        while(cin.fail() ||temp.paz_sk<1)
+        {
+            cout<<"neteisinga ivestis, reikia teigiamo skaiciaus: ";
+            cin.clear();
+            cin.ignore(256,'\n');
+            cin>>temp.paz_sk;
+        }
+        temp.pazymiukai=new int[temp.paz_sk];  
+        cout<<"Nd pazymiai: ";
+        for(int i=0;i<temp.paz_sk;i++)
+        {
         int n= (rand()%10)+1;
-        cout<<n<<" ";
         temp.pazymiukai[i]=n; 
-    }
-    cout<<endl;
-      cout<<"Atsitiktinis egzamino pazymys: ";
+        cout<<n<<" ";
+         }
+        cout<<endl;
+        cout<<"Atsitiktinis egzamino pazymys: ";
         int m=(rand()%10)+1;
         cout<<m<<endl;
         temp.egzas=m;
     }
 }
-   
-
-   
-    /* int pazymiuMasyvas[paz_sk];//laikinas masyvas 
-    cout<<"iveskite  pazymius: ";
-    for(int &i: pazymiuMasyvas)//nuoroda i elementus 
-    {
-        cin>>i; 
-    } 
-    temp.pazymiukai=new int[paz_sk];  *///rezervuoja kiek duomenu patalpinti
-    
-    //alternative
-    
-    /*
-    for(int j=0;j<paz_sk; j++) temp.pazymiukai[j]=pazymiuMasyvas[j]; 
-    */
-    
-  
-
 float vidurkis(studentukas &temp)
 {
   float sum=0;
   float avg=0;
-    for(int i=0;i<paz_sk;i++)
+  if(temp.paz_sk>0)
+  {
+    for(int i=0;i<temp.paz_sk;i++)
     {
         sum+=temp.pazymiukai[i];
     }
-    avg=(((float)sum)/(paz_sk)); 
+    avg=(((float)sum)/(temp.paz_sk)); 
     return avg;
+  }
+    else{
+        avg=0;
+        return avg; 
+    }
 }
 
 float mediana(studentukas &temp){
-    
-    sort(temp.pazymiukai,temp.pazymiukai+paz_sk);
-    if(paz_sk%2==0)
+    float mediana=0;
+    sort(temp.pazymiukai,temp.pazymiukai+temp.paz_sk);
+    if(temp.paz_sk>0)
     {
-        return((float)(temp.pazymiukai[paz_sk/2-1]+temp.pazymiukai[paz_sk/2])/2);
+      if(temp.paz_sk%2==0)
+    {
+        mediana=((float)(temp.pazymiukai[temp.paz_sk/2-1]+temp.pazymiukai[temp.paz_sk/2])/2.0);
+        return mediana;
     }
     else{
-        return((float)temp.pazymiukai[paz_sk/2]);
+        mediana=((float)temp.pazymiukai[temp.paz_sk/2]);
+        return mediana;
+    }  
     }
-
+    else
+    {
+        mediana=0;
+        return mediana;   
+    }
 }
 float galutinisVID(studentukas &temp)
 {
@@ -135,61 +185,68 @@ float galutinisMed(studentukas &temp)
 
 void spausdinimas(studentukas &temp)
 {   
-    cout<<"Galutinis su vidurkiu ar mediana?(v/m)";
+    cout<<"Galutinis su vidurkiu, mediana ar abu?(v/m/a)";
     cin>>ats;
-    cout<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis"<<endl;
+    while(ats!="v"&& ats!="m"&& ats!="a")
+   {
+    cout<<"iveskite v arba m arba a: "<<endl;
+    cin>>ats; 
+   }
+   
+    if(ats=="v")
+    {cout<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis(vid)"<<endl;
     cout<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<endl;
-    
     cout<<setw(20)<<left<<temp.vardas<<setw(20)<<left<<temp.pavarde; 
-   
-    if(ats=='v'||ats=='V')
-    {
-        cout<<setw(20)<<setprecision(3)<<galutinisVID(temp)<<endl;
+    cout<<setw(20)<<fixed<<setprecision(2)<<galutinisVID(temp)<<endl;
     }
-    else if(ats=='m'||ats=='M')
+    else if(ats=="m")
     {
-        cout<<setw(20)<<setprecision(3)<<galutinisMed(temp)<<endl;
+        cout<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis(med)"<<endl;
+        cout<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<endl;
+        cout<<setw(20)<<left<<temp.vardas<<setw(20)<<left<<temp.pavarde; 
+        cout<<setw(20)<<fixed<<setprecision(2)<<galutinisMed(temp)<<endl;
 
     }
-
-   
-   /*  
-    for(int i=0; i<paz_sk;i++)
+    else if(ats=="a")
     {
-        cout<<setw(5)<<temp.pazymiukai[i]; 
+        cout<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis(vid)"<<setw(20)<<left<<"Galutinis(med)"<<endl;
+        cout<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<endl;
+        cout<<setw(20)<<left<<temp.vardas<<setw(20)<<left<<temp.pavarde; 
+        cout<<setw(20)<<fixed<<setprecision(2)<<galutinisVID(temp)<<setprecision(2)<<galutinisMed(temp)<<endl;
+    
     }
-
-    cout<<setw(3)<<temp.egzas<<endl;
-
-    delete [] temp.pazymiukai;//bus trinamas pagal pointeri*/
 } 
 
 int main()
 {
     studentukas *studentuMasyvas;
-    int nr=1;
-  
-    studentuMasyvas=new studentukas[nr]; 
+    int in=0;
+
+    studentuMasyvas=new studentukas[X]; 
 //cia ciklas
 do { 
-    pildyk(studentuMasyvas[nr-1]);
-    studentukas *temp= new studentukas[nr];
+    pildyk(studentuMasyvas[in]);
+    X++;
+    in++;
+    studentukas *temp= new studentukas[X];
 
-    copy(studentuMasyvas, studentuMasyvas+nr, temp);
+    copy(studentuMasyvas, studentuMasyvas+(X-1), temp);
     delete [] studentuMasyvas;
-
-    studentuMasyvas=new studentukas[nr+1];
-    
-    copy(temp, temp+nr, studentuMasyvas);
-    delete [] temp;
-    nr++;//baigiasi // ir sukurti dinamine struktura pazymiu ivedimui 
-    cout<<"Ar norite pildyti informacija apir kita studenta?"; 
+    studentuMasyvas=temp;
+    temp=NULL;
+     //baigiasi // ir sukurti dinamine struktura pazymiu ivedimui 
+    cout<<"Ar norite pildyti informacija apir kita studenta?(t/n)"; 
     cin>>ats;
+    while((ats!="t")&&(ats!="n"))
+    {
+        cout<<"t-prideti dar studenta, n-baigti ivedima"<<endl;
+        cin>>ats;
+    }
   
-}while(ats=='t'||ats=='T');
+}while(ats=="t");
+X--;
 
 
-for(int i=0; i<nr-1;i++) spausdinimas(studentuMasyvas[i]);
+for(int i=0; i<X;i++) spausdinimas(studentuMasyvas[i]);
 
-delete [] studentuMasyvas;
 }
