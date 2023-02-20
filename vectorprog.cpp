@@ -1,5 +1,7 @@
 #include "mylib.h"
-char ats;
+string ats;
+
+
 struct studentukas{
     string vardas, pavarde; 
     vector<int> pazymiukai; 
@@ -11,28 +13,57 @@ void pildyk(studentukas &temp)
     cout<<"iveskite varda ir pavarde: ";
     cin>>temp.vardas>>temp.pavarde;
     
-    cout<<"rankinis ivedimas ar atsitiktiniai skaiciai?(r/a)";
-    cin>>ats;
-    if (ats=='r'||ats=='R')
-    {   
-        cout<<"iveskite pazymius: ";
-        int x;
+    while((ats!="r"&& ats!="R")&&( ats!="a"&&ats!="A"))
+    {
+        cout<<"Rankinis ivedimas ar atsitiktiniai skaiciai?(r/a)";
+        cin>>ats;  
+    }
+
+    if (ats=="r"||ats=="R")
+        {  
+            int x=0;
+            int paz_sk=0; 
+            cout<<"iveskite pazymius: ";
+        
         while(cin>>x)
         {
-            temp.pazymiukai.push_back(x);
+            if(x<=10 && x>=1)
+            {
+                temp.pazymiukai.push_back(x);
+                paz_sk++;
+                 
+            }
+            else{
+                cout<<"iveskite skaiciu nuo 1 iki 10"<<endl;
+            }
+            
         } 
         cin.clear(); 
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');//
+
         cout<<"iveskite egzamino pazymi: ";
-        cin>>temp.egzas; 
-    }
-    else if(ats=='a'||ats=='A')
+        while(cin>>temp.egzas)
+        {
+            if((temp.egzas>=1)&&(temp.egzas<=10))
+            {
+            break;
+            }
+            else
+            {
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+            cout<<"iveskite skaiciu nuo 1 iki 10"<<endl; 
+            }
+      }
+        }
+
+    else if(ats=="a"||ats=="A")
     {
         int size=0;
         srand(time(NULL));
-        cout<<"kiek nd pazymiu norite tureti?(1-10)";
+        cout<<"kiek nd pazymiu norite tureti?";
         cin>>size;
-        cout<<"nd pazymiai: ";
+        cout<<"Nd pazymiai: ";
          while(size>0)
         {
             int n=(rand()%10)+1;
@@ -46,57 +77,95 @@ void pildyk(studentukas &temp)
         cout<<m<<endl;
         temp.egzas=m;
     }
-    
 }
+        
+      
+    
 float vidurkis(studentukas &temp)
 {
   float sum=0;
   float avg=0;
-    for(int i=0;i<temp.pazymiukai.size();i++)
+  if(temp.pazymiukai.size()>0)
+  {
+     for(int i=0;i<temp.pazymiukai.size();i++)
     {
         sum+=temp.pazymiukai[i];
     }
     avg=(((float)sum)/(temp.pazymiukai.size())); 
     return avg;
+  }
+  else{
+    avg=0;
+    return 0;
+  }
+   
 }
 
 float mediana(studentukas &temp){
     
+    float mediana=0;
     sort(temp.pazymiukai.begin(),temp.pazymiukai.end());
-    if(temp.pazymiukai.size()%2==0)
+    if(temp.pazymiukai.empty())
     {
-        return((float)(temp.pazymiukai[temp.pazymiukai.size()/2-1]+temp.pazymiukai[temp.pazymiukai.size()/2])/2);
+        mediana=0;
+        return mediana;
     }
-    else{
-        return((float)temp.pazymiukai[temp.pazymiukai.size()/2]);
+    else
+    {
+        if(temp.pazymiukai.size()%2==0)
+        {
+        mediana=((float)(temp.pazymiukai[(temp.pazymiukai.size()/2.0)-1]+temp.pazymiukai[temp.pazymiukai.size()/2.0])/2.0);
+        return mediana;
+        }
+        else {
+        mediana=((float)temp.pazymiukai[temp.pazymiukai.size()/2.0]);
+        return mediana;
+        }
     }
 
 }
+
 float galutinisVID(studentukas &temp)
 {
     return ((0.4*vidurkis(temp))+(0.6*temp.egzas));
 } 
+
 float galutinisMed(studentukas &temp)
 {
     return ((0.4*mediana(temp))+(0.6*temp.egzas)); 
 }
+
 void spausdinimas(studentukas &temp)
 {
-    cout<<"Galutinis su vidurkiu ar mediana?(v/m)";
+    cout<<"Galutinis su vidurkiu, mediana ar abu?(v/m/a)";
     cin>>ats;
-    cout<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis"<<endl;
-    cout<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<endl;
+    while(ats!="v"&& ats!="m"&& ats!="a")
+   {
+    cout<<"iveskite v arba m arba a: "<<endl;
+    cin>>ats; 
+   }
     
+    if(ats=="v"||ats=="V")
+    {cout<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis(vid)"<<endl;
+    cout<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<endl;
     cout<<setw(20)<<left<<temp.vardas<<setw(20)<<left<<temp.pavarde; 
-   
-    if(ats=='v'||ats=='V')
-    {
-        cout<<setw(20)<<setprecision(3)<<galutinisVID(temp)<<endl;
+    cout<<setw(20)<<fixed<<setprecision(2)<<galutinisVID(temp)<<endl;
     }
-    else if(ats=='m'||ats=='M')
+    else if(ats=="m"||ats=="M")
     {
-        cout<<setw(20)<<setprecision(3)<<galutinisMed(temp)<<endl;
+        cout<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis(med)"<<endl;
+        cout<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<endl;
+        cout<<setw(20)<<left<<temp.vardas<<setw(20)<<left<<temp.pavarde; 
+        cout<<setw(20)<<fixed<<setprecision(2)<<galutinisMed(temp)<<endl;
 
+    }
+    else if(ats=="a"||ats=="A")
+    {
+        cout<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis(vid)"<<setw(20)<<left<<"Galutinis(med)"<<endl;
+        cout<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<endl;
+        cout<<setw(20)<<left<<temp.vardas<<setw(20)<<left<<temp.pavarde; 
+        cout<<setw(20)<<fixed<<setprecision(2)<<galutinisVID(temp)<<setprecision(2)<<galutinisMed(temp)<<endl;
+    
     }
     
 }
@@ -112,7 +181,7 @@ int main()
         pildyk(laikinas);
         mas.push_back(laikinas);
         laikinas.pazymiukai.clear();
-        cout<<"do you want to add infor about ther student(t/n)?";
+        cout<<"Ar norite ivesti informacija apie kitus studentus?(t/n)?";
         cin>>kart;
        
     }while(kart=='t'||kart=='T');
@@ -121,12 +190,10 @@ int main()
     {
         spausdinimas(i); 
     }
-   for(auto &i: mas) i.pazymiukai.clear();
+   for(auto &i: mas) 
+   {
+      i.pazymiukai.clear();
+   }
+ 
    mas.clear();
-
-
-
-    
-    
-
 }
