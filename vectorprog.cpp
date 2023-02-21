@@ -1,6 +1,6 @@
 #include "mylib.h"
 
-string ats;
+string ats;//
 
 struct studentukas{
     string vardas, pavarde; 
@@ -182,20 +182,19 @@ int main()
 { 
     vector<studentukas> mas;
     studentukas laikinas;
-
-    char kart; 
     int k=0;
     do{
         pildyk(laikinas);
         mas.push_back(laikinas);
         laikinas.pazymiukai.clear();
-        cout<<"Ar norite ivesti informacija apie kitus studentus?(t/n)?";
-        cin>>kart;
-        while((kart!='t')&&(kart!='n'))
+        
+        while((ats!="t")&&(ats!="n"))
         {
+        cout<<"Ar norite ivesti informacija apie kitus studentus?(t/n)?";
         cout<<"t-prideti dar studenta, n-baigti ivedima"<<endl;
+        cin>>ats;
         }
-    }while(kart=='t');
+    }while(ats=="t");
 
     for(auto &i: mas)
     {
