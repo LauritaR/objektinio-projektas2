@@ -48,7 +48,7 @@ void pildyk(studentukas &temp)
                 { 
                 cin.clear();
                 cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-                cout<<"iveskite skaiciu nuo 1 iki 10"<<endl; 
+                cout<<"Iveskite skaiciu nuo 1 iki 10"<<endl; 
                 cin>>paz;
                 }
             }
@@ -73,7 +73,7 @@ void pildyk(studentukas &temp)
                 {
                     cin.clear();
                     cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-                    cout<<"iveskite skaiciu nuo 1 iki 10"<<endl; 
+                    cout<<"Iveskite skaiciu nuo 1 iki 10"<<endl; 
                     cin>>paz;
                 }
             }
@@ -88,7 +88,7 @@ void pildyk(studentukas &temp)
     cin.clear();
     cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
 
-    cout<<"iveskite egzamino pazymi: ";
+    cout<<"Iveskite egzamino pazymi: ";
     while(cin>>temp.egzas)
     {
         if((temp.egzas>=1)&&(temp.egzas<=10))
@@ -99,7 +99,7 @@ void pildyk(studentukas &temp)
         {
             cin.clear();
             cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-            cout<<"iveskite skaiciu nuo 1 iki 10"<<endl; 
+            cout<<"Iveskite skaiciu nuo 1 iki 10"<<endl; 
         }
     }
     cin.clear();
@@ -110,11 +110,11 @@ void pildyk(studentukas &temp)
        { 
         srand(time(NULL));
         
-        cout<<"kiek pazymiu noretumet gauti?";
+        cout<<"Kiek pazymiu noretumete gauti?";
         cin>>temp.paz_sk; 
         while(cin.fail() ||temp.paz_sk<1)
         {
-            cout<<"neteisinga ivestis, reikia teigiamo skaiciaus: ";
+            cout<<"Neteisinga ivestis, reikia teigiamo skaiciaus: ";
             cin.clear();
             cin.ignore(256,'\n');
             cin>>temp.paz_sk;
