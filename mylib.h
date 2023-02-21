@@ -18,3 +18,5 @@ using std::string;
 using std::flush;
 using std::sort;
 using std::vector;
+using std::getline;
+using std::fixed;
