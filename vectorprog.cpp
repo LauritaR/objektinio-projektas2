@@ -1,6 +1,6 @@
 #include "mylib.h"
-string ats;
 
+string ats;
 
 struct studentukas{
     string vardas, pavarde; 
@@ -10,7 +10,7 @@ struct studentukas{
 
 void pildyk(studentukas &temp)
 {
-    cout<<"iveskite varda ir pavarde: ";
+    cout<<"Iveskite varda ir pavarde: ";
     cin>>temp.vardas>>temp.pavarde;
     
     while((ats!="r")&&( ats!="a"))
@@ -23,7 +23,7 @@ void pildyk(studentukas &temp)
         {  
             int x=0;
             int paz_sk=0; 
-            cout<<"iveskite pazymius(1-10): ";
+            cout<<"Iveskite pazymius(1-10): ";
         
         while(cin>>x)
         {
@@ -34,14 +34,14 @@ void pildyk(studentukas &temp)
                  
             }
             else{
-                cout<<"iveskite skaiciu nuo 1 iki 10"<<endl;
+                cout<<"Iveskite skaiciu nuo 1 iki 10"<<endl;
             }
             
         } 
         cin.clear(); 
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');//
 
-        cout<<"iveskite egzamino pazymi(1-10): ";
+        cout<<"Iveskite egzamino pazymi(1-10): ";
         while(cin>>temp.egzas)
         {
             if((temp.egzas>=1)&&(temp.egzas<=10))
@@ -52,7 +52,7 @@ void pildyk(studentukas &temp)
             {
             cin.clear();
             cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-            cout<<"iveskite skaiciu nuo 1 iki 10"<<endl; 
+            cout<<"Iveskite skaiciu nuo 1 iki 10"<<endl; 
             }
       }
         }
@@ -61,8 +61,16 @@ void pildyk(studentukas &temp)
     {
         int size=0;
         srand(time(NULL));
-        cout<<"kiek nd pazymiu norite tureti?";
+        cout<<"Kiek nd pazymiu norite tureti?";
         cin>>size;
+        while(cin.fail() ||size<1)
+        {
+            cout<<"Neteisinga ivestis, reikia teigiamo skaiciaus: ";
+            cin.clear();
+            cin.ignore(256,'\n');
+            cin>>size;
+        }
+
         cout<<"Nd pazymiai: ";
          while(size>0)
         {
@@ -72,7 +80,7 @@ void pildyk(studentukas &temp)
             size--; 
         }
         cout<<endl;
-        cout<<"atsitiktinis egzo pazymys: ";
+        cout<<"Atsitiktinis egzamino pazymys: ";
         int m=(rand()%10)+1;
         cout<<m<<endl;
         temp.egzas=m;
@@ -141,7 +149,7 @@ void spausdinimas(studentukas &temp)
     cin>>ats;
     while(ats!="v"&& ats!="m"&& ats!="a")
    {
-    cout<<"iveskite v arba m arba a: "<<endl;
+    cout<<"Iveskite v arba m arba a: "<<endl;
     cin>>ats; 
    }
     
@@ -183,12 +191,10 @@ int main()
         laikinas.pazymiukai.clear();
         cout<<"Ar norite ivesti informacija apie kitus studentus?(t/n)?";
         cin>>kart;
-        while((ats!="t")&&(ats!="n"))
-    {
+        while((kart!='t')&&(kart!='n'))
+        {
         cout<<"t-prideti dar studenta, n-baigti ivedima"<<endl;
-        cin>>ats;
-    }
-       
+        }
     }while(kart=='t');
 
     for(auto &i: mas)
