@@ -23,7 +23,7 @@ void pildyk(studentukas &temp)
     }
     if(ats=="r")
     {
-    cout<<"Iveskite pazymius(1-10)(iveskite simboli arba raide sustabdyti): ";
+    cout<<"Iveskite pazymius(0-10)(iveskite simboli arba raide sustabdyti): ";
     int in=0, d=1, paz=0;//indeksas,dydis, pazymis
     int *pazymiuMasyvas=new int[d];
     
@@ -33,7 +33,7 @@ void pildyk(studentukas &temp)
         {
             while(true)
             {
-                if((paz>=1)&&(paz<=10))
+                if((paz>=0)&&(paz<=10))
                 {
                 pazymiuMasyvas[in]=paz;
                 d++;
@@ -48,7 +48,7 @@ void pildyk(studentukas &temp)
                 { 
                 cin.clear();
                 cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-                cout<<"Iveskite skaiciu nuo 1 iki 10"<<endl; 
+                cout<<"Iveskite skaiciu nuo 0 iki 10"<<endl; 
                 cin>>paz;
                 }
             }
@@ -73,7 +73,7 @@ void pildyk(studentukas &temp)
                 {
                     cin.clear();
                     cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-                    cout<<"Iveskite skaiciu nuo 1 iki 10"<<endl; 
+                    cout<<"Iveskite skaiciu nuo 0 iki 10"<<endl; 
                     cin>>paz;
                 }
             }
@@ -91,7 +91,7 @@ void pildyk(studentukas &temp)
     cout<<"Iveskite egzamino pazymi: ";
     while(cin>>temp.egzas)
     {
-        if((temp.egzas>=1)&&(temp.egzas<=10))
+        if((temp.egzas>=0)&&(temp.egzas<=10))
         {
             break;
         }
@@ -99,7 +99,7 @@ void pildyk(studentukas &temp)
         {
             cin.clear();
             cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-            cout<<"Iveskite skaiciu nuo 1 iki 10"<<endl; 
+            cout<<"Iveskite skaiciu nuo 0 iki 10"<<endl; 
         }
     }
     cin.clear();
@@ -133,6 +133,7 @@ void pildyk(studentukas &temp)
         cout<<m<<endl;
         temp.egzas=m;
     }
+ 
 }
 float vidurkis(studentukas &temp)
 {
@@ -151,6 +152,7 @@ float vidurkis(studentukas &temp)
         avg=0;
         return avg; 
     }
+   
 }
 
 float mediana(studentukas &temp){
@@ -185,8 +187,9 @@ float galutinisMed(studentukas &temp)
 
 void spausdinimas(studentukas &temp)
 {   
+    
     cout<<"Galutinis su vidurkiu, mediana ar abu?(v/m/a)";
-    cin>>ats;
+    cin>>ats;  
     while(ats!="v"&& ats!="m"&& ats!="a")
    {
     cout<<"iveskite v arba m arba a: "<<endl;
