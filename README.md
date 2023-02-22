@@ -1,4 +1,4 @@
-# objektinio-projektas
+# Pirma versija(2 variantai)
 
 Šioje subrepozitorijoje yra kuriamos programos 0.1 versija. 
 Kodas Cmasyvas.cpp atliktas naudojant dinaminius masyvus.
