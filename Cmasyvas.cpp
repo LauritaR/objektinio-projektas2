@@ -223,7 +223,6 @@ int main()
     int in=0;
 
     studentuMasyvas=new studentukas[X]; 
-//cia ciklas
 do { 
     pildyk(studentuMasyvas[in]);
     X++;
@@ -234,7 +233,6 @@ do {
     delete [] studentuMasyvas;
     studentuMasyvas=temp;
     temp=NULL;
-     //baigiasi // ir sukurti dinamine struktura pazymiu ivedimui 
     cout<<"Ar norite pildyti informacija apir kita studenta?(t/n)"; 
     cin>>ats;
     while((ats!="t")&&(ats!="n"))
