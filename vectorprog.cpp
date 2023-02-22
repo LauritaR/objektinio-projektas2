@@ -22,27 +22,27 @@ void pildyk(studentukas &temp)//funkcija pildyti studentuko duomenis
     if (ats=="r")//kai ivedama raide r
         {  
         int x=0;//x pazymiui
-        cout<<"Iveskite pazymius(1-10): ";
+        cout<<"Iveskite pazymius(0-10): ";
         
         while(cin>>x)//kol skaiciai irasomi
         {
-            if(x<=10 && x>=1)
+            if(x<=10 && x>=0)
             {
                 temp.pazymiukai.push_back(x);//jeigu x maz/lygus nei 10 ir did/lygus 1 tai issaugoma
                  
             }
             else{
-                cout<<"Iveskite skaiciu nuo 1 iki 10"<<endl;//jeigu ne tai prasoma ivesti skaiciu vel
+                cout<<"Iveskite skaiciu nuo 0 iki 10"<<endl;//jeigu ne tai prasoma ivesti skaiciu vel
             }
             
         } 
         cin.clear(); 
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
 
-        cout<<"Iveskite egzamino pazymi(1-10): ";
+        cout<<"Iveskite egzamino pazymi(0-10): ";
         while(cin>>temp.egzas)
         {
-            if((temp.egzas>=1)&&(temp.egzas<=10))
+            if((temp.egzas>=0)&&(temp.egzas<=10))
             {
             break;
             }
@@ -50,7 +50,7 @@ void pildyk(studentukas &temp)//funkcija pildyti studentuko duomenis
             {
             cin.clear();
             cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-            cout<<"Iveskite skaiciu nuo 1 iki 10"<<endl; 
+            cout<<"Iveskite skaiciu nuo 0 iki 10"<<endl; 
             }
       }
         }
