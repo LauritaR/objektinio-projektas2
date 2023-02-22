@@ -1,45 +1,43 @@
 #include "mylib.h"
 
-string ats;//
+string ats;//kintamasis gauti input validation
 
 struct studentukas{
     string vardas, pavarde; 
-    vector<int> pazymiukai; 
+    vector<int> pazymiukai; //struktura objektams saugoti
     int egzas;
 };
 
-void pildyk(studentukas &temp)
+void pildyk(studentukas &temp)//funkcija pildyti studentuko duomenis
 {
-    cout<<"Iveskite varda ir pavarde: ";
+    cout<<"Iveskite varda ir pavarde: ";//vartotojas iveda savo varda pavarde
     cin>>temp.vardas>>temp.pavarde;
     
-    while((ats!="r")&&( ats!="a"))
+    while((ats!="r")&&( ats!="a"))//uzklausa kokiu budu vartotojas nori irasyti pazymius, jeigu atsako nei a nei r-prasoma is naujo
     {
         cout<<"Rankinis ivedimas ar atsitiktiniai skaiciai?(r/a)";
         cin>>ats;  
     }
 
-    if (ats=="r")
+    if (ats=="r")//kai ivedama raide r
         {  
-            int x=0;
-            int paz_sk=0; 
-            cout<<"Iveskite pazymius(1-10): ";
+        int x=0;//x pazymiui
+        cout<<"Iveskite pazymius(1-10): ";
         
-        while(cin>>x)
+        while(cin>>x)//kol skaiciai irasomi
         {
             if(x<=10 && x>=1)
             {
-                temp.pazymiukai.push_back(x);
-                paz_sk++;
+                temp.pazymiukai.push_back(x);//jeigu x maz/lygus nei 10 ir did/lygus 1 tai issaugoma
                  
             }
             else{
-                cout<<"Iveskite skaiciu nuo 1 iki 10"<<endl;
+                cout<<"Iveskite skaiciu nuo 1 iki 10"<<endl;//jeigu ne tai prasoma ivesti skaiciu vel
             }
             
         } 
         cin.clear(); 
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');//
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
 
         cout<<"Iveskite egzamino pazymi(1-10): ";
         while(cin>>temp.egzas)
@@ -57,13 +55,13 @@ void pildyk(studentukas &temp)
       }
         }
 
-    else if(ats=="a")
+    else if(ats=="a")//jeigu vartotojas renkasi atsitiktini vykdomass sis kodas
     {
         int size=0;
         srand(time(NULL));
         cout<<"Kiek nd pazymiu norite tureti?";
         cin>>size;
-        while(cin.fail() ||size<1)
+        while(cin.fail() ||size<1)//jeigu irasomas 0 ar kitas netinkamas simbolis vykdomas sis kodas
         {
             cout<<"Neteisinga ivestis, reikia teigiamo skaiciaus: ";
             cin.clear();
@@ -89,7 +87,7 @@ void pildyk(studentukas &temp)
         
       
     
-float vidurkis(studentukas &temp)
+float vidurkis(studentukas &temp)//vidurkio skaiciavimo kodas
 {
   float sum=0;
   float avg=0;
@@ -109,7 +107,7 @@ float vidurkis(studentukas &temp)
    
 }
 
-float mediana(studentukas &temp){
+float mediana(studentukas &temp){//medianos skaiciavimas 
     
     float mediana=0;
     sort(temp.pazymiukai.begin(),temp.pazymiukai.end());
@@ -133,17 +131,17 @@ float mediana(studentukas &temp){
 
 }
 
-float galutinisVID(studentukas &temp)
+float galutinisVID(studentukas &temp)//galutinio su vidurkiu skaiciavimas
 {
     return ((0.4*vidurkis(temp))+(0.6*temp.egzas));
 } 
 
-float galutinisMed(studentukas &temp)
+float galutinisMed(studentukas &temp)//galutinio su mediana skaiciavimas
 {
     return ((0.4*mediana(temp))+(0.6*temp.egzas)); 
 }
 
-void spausdinimas(studentukas &temp)
+void spausdinimas(studentukas &temp)//duomenu spausdinimui vartotojas turi pasirinkti isvedimo forma 
 {
     cout<<"Galutinis su vidurkiu, mediana ar abu?(v/m/a)";
     cin>>ats;
