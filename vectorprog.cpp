@@ -28,7 +28,7 @@ void pildyk(studentukas &temp)//funkcija pildyti studentuko duomenis
         {
             if(x<=10 && x>=0)
             {
-                temp.pazymiukai.push_back(x);//jeigu x maz/lygus nei 10 ir did/lygus 1 tai issaugoma
+                temp.pazymiukai.push_back(x);//jeigu x maz/lygus nei 10 ir did/lygus 0 tai issaugoma
                  
             }
             else{
@@ -61,7 +61,7 @@ void pildyk(studentukas &temp)//funkcija pildyti studentuko duomenis
         srand(time(NULL));
         cout<<"Kiek nd pazymiu norite tureti?";
         cin>>size;
-        while(cin.fail() ||size<1)//jeigu irasomas 0 ar kitas netinkamas simbolis vykdomas sis kodas
+        while(cin.fail() ||size<1)//jeigu  netinkamas simbolis vykdomas sis kodas
         {
             cout<<"Neteisinga ivestis, reikia teigiamo skaiciaus: ";
             cin.clear();
