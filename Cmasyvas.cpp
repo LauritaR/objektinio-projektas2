@@ -197,10 +197,11 @@ void spausdinimas(studentukas &temp)
    }
    
     if(ats=="v")
-    {cout<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis(vid)"<<endl;
-    cout<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<endl;
-    cout<<setw(20)<<left<<temp.vardas<<setw(20)<<left<<temp.pavarde; 
-    cout<<setw(20)<<fixed<<setprecision(2)<<galutinisVID(temp)<<endl;
+    {
+        cout<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis(vid)"<<endl;
+        cout<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<endl;
+        cout<<setw(20)<<left<<temp.vardas<<setw(20)<<left<<temp.pavarde; 
+        cout<<setw(20)<<fixed<<setprecision(2)<<galutinisVID(temp)<<endl;
     }
     else if(ats=="m")
     {
