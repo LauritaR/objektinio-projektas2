@@ -166,6 +166,10 @@ void spausdinimas(studentukas &temp)//duomenu spausdinimui
         cout<<setw(20)<<fixed<<setprecision(2)<<galutinisVID(temp)<<setprecision(2)<<galutinisMed(temp)<<endl;
     
 }
+bool sortPavarde(studentukas& a, studentukas& b)
+{
+    return a.pavarde<b.pavarde;
+}
 
 void mix(string read_studentukas, string write_studentukas)
 {
@@ -198,6 +202,7 @@ void mix(string read_studentukas, string write_studentukas)
 
     open_f.close();
     string outputas=" ";
+    sort(stud.begin(),stud.end(),sortPavarde);
 
     for (auto vp = stud.begin(); vp !=stud.end();++vp) 
     {
@@ -262,6 +267,4 @@ int main()
  
    mas.clear();   
     }
-
-  
 }
