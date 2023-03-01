@@ -7,6 +7,8 @@
 #include <time.h>
 #include <fstream>
 #include <sstream>
+#include <chrono>
+
 using std::cout;
 using std::cin;
 using std::endl;
@@ -27,3 +29,6 @@ using std::getline;
 using std::istringstream;
 using std::ofstream;
 using std::stringstream;
+using std::invalid_argument;
+using std::cerr;
+using std::runtime_error;
