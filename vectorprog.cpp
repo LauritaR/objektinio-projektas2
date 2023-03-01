@@ -1,7 +1,5 @@
 #include "mylib.h"
 
-string ats;//kintamasis gauti input validation
-
 struct studentukas{
     string vardas, pavarde; 
     vector<int> pazymiukai; //struktura objektams saugoti
@@ -10,7 +8,7 @@ struct studentukas{
 
 void pildyk(studentukas &temp)//funkcija pildyti studentuko duomenis
 {
-
+    string ats;
     while((ats!="r")&&( ats!="a"))//uzklausa kokiu budu vartotojas nori irasyti pazymius, jeigu atsako nei a nei r-prasoma is naujo
     {
         cout<<"Rankinis ivedimas ar atsitiktiniai skaiciai?(r/a)";
@@ -18,7 +16,7 @@ void pildyk(studentukas &temp)//funkcija pildyti studentuko duomenis
     }
 
     if (ats=="r")//kai ivedama raide r
-        {   
+        {  
         cout<<"Iveskite varda ir pavarde: ";//vartotojas iveda savo varda pavarde
         cin>>temp.vardas>>temp.pavarde;
         int x=0;//x pazymiui
@@ -26,40 +24,40 @@ void pildyk(studentukas &temp)//funkcija pildyti studentuko duomenis
         
         while(cin>>x)//kol skaiciai irasomi
         {
-            if(x<=10 && x>=0)
-            {
-                temp.pazymiukai.push_back(x);//jeigu x maz/lygus nei 10 ir did/lygus 0 tai issaugoma
-                 
+            if(x<=10 && x>=0){
+            temp.pazymiukai.push_back(x);//jeigu x maz/lygus nei 10 ir did/lygus 0 tai issaugoma 
             }
             else{
-                cout<<"Iveskite skaiciu nuo 0 iki 10"<<endl;//jeigu ne tai prasoma ivesti skaiciu vel
-            }
-            
+            cout<<"Iveskite skaiciu nuo 0 iki 10"<<endl;//jeigu ne tai prasoma ivesti skaiciu vel
+            } 
         } 
         cin.clear(); 
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
 
         cout<<"Iveskite egzamino pazymi(0-10): ";
-        while(cin>>temp.egzas)
+        while(true)
         {
-            if((temp.egzas>=0)&&(temp.egzas<=10))
+            try//exception handling 1
             {
-            break;
+               cin>>temp.egzas;
+               if(cin.fail()||(temp.egzas<0)||(temp.egzas>10))
+               {
+                throw"Iveskite skaiciu nuo 0 iki 10";
+               }
+               break;
             }
-            else
+            catch(const char* emsg)
             {
-            cin.clear();
-            cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-            cout<<"Iveskite skaiciu nuo 0 iki 10"<<endl; 
+                cout<<emsg<<endl;
+                cin.clear();
+                cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
             }
-      }
         }
-
-    else if(ats=="a")//jeigu vartotojas renkasi atsitiktini vykdomass sis kodas
-    {
-        int size=0;
-        srand(time(NULL)); 
-        int vardasIRpav=(rand()%5)+1;
+        }
+        else if(ats=="a")//jeigu vartotojas renkasi atsitiktini vykdomass sis kodas
+        {
+        srand(time(NULL));    
+        int size=0,vardasIRpav=(rand()%5)+1;
         switch (vardasIRpav)
         {
         case 1:
@@ -80,18 +78,27 @@ void pildyk(studentukas &temp)//funkcija pildyti studentuko duomenis
         default:
             break;
         }
-        cout<<"Kiek nd pazymiu norite tureti?";
-        cin>>size;
-        while(cin.fail() ||size<1)//jeigu  netinkamas simbolis vykdomas sis kodas
+       cout<<"Kiek nd pazymiu norite tureti?";
+       while(true)
+       {
+        try//exception handling 1
+        {  
+            cin>>size;
+            if(cin.fail() ||size<1)//jeigu  netinkamas simbolis vykdomas sis kodas
+            {
+            throw "Neteisinga ivestis, reikia teigiamo skaiciaus: ";
+            }
+            break;
+        }
+        catch(const char* msg)     
         {
-            cout<<"Neteisinga ivestis, reikia teigiamo skaiciaus: ";
+            cout<<msg<<endl;
             cin.clear();
             cin.ignore(256,'\n');
-            cin>>size;
         }
-
+       }
         cout<<"Nd pazymiai: ";
-         while(size>0)
+        while(size>0)
         {
             int n=(rand()%10)+1;
             cout<<n<<" ";
@@ -105,80 +112,83 @@ void pildyk(studentukas &temp)//funkcija pildyti studentuko duomenis
         temp.egzas=m;
     }
 }
-        
-      
-    
-float vidurkis(studentukas &temp)//vidurkio skaiciavimo kodas
+
+
+float galutinisVID(studentukas &temp)//vidurkio skaiciavimo kodas
 {
-  float sum=0;
-  float avg=0;
-  if(temp.pazymiukai.size()>0)
-  {
-     for(int i=0;i<temp.pazymiukai.size();i++)
-    {
-        sum+=temp.pazymiukai[i];
-    }
-    avg=(((float)sum)/(temp.pazymiukai.size())); 
-    return avg;
-  }
-  else{
-    avg=0;
-    return 0;
-  }
+  float sum=0,avg=0;
+    if(temp.pazymiukai.size()>0)
+        {
+            for(int i=0;i<temp.pazymiukai.size();i++)
+            {
+             sum+=temp.pazymiukai[i];
+            }
+            avg=((float)sum)/(temp.pazymiukai.size());   
+        } 
+    return ((0.4*avg)+(0.6*temp.egzas));
 }
 
-float mediana(studentukas &temp){//medianos skaiciavimas 
-    
+float galutinisMed(studentukas &temp)//medianos skaiciavimas  
+{   
     float mediana=0;
     sort(temp.pazymiukai.begin(),temp.pazymiukai.end());
-    if(temp.pazymiukai.empty())
-    {
-        mediana=0;
-        return mediana;
-    }
-    else
-    {
-        if(temp.pazymiukai.size()%2==0)
+   
+    if(temp.pazymiukai.size()%2==0)
         {
         mediana=((float)(temp.pazymiukai[(temp.pazymiukai.size()/2.0)-1]+temp.pazymiukai[temp.pazymiukai.size()/2.0])/2.0);
-        return mediana;
         }
-        else {
+        else 
+        {
         mediana=((float)temp.pazymiukai[temp.pazymiukai.size()/2.0]);
-        return mediana;
-        }
-    }
-}
-
-float galutinisVID(studentukas &temp)//galutinio su vidurkiu skaiciavimas
-{
-    return ((0.4*vidurkis(temp))+(0.6*temp.egzas));
-} 
-
-float galutinisMed(studentukas &temp)//galutinio su mediana skaiciavimas
-{
-    return ((0.4*mediana(temp))+(0.6*temp.egzas)); 
-}
-
-void spausdinimas(studentukas &temp)//duomenu spausdinimui 
-{
-        cout<<setw(20)<<left<<temp.vardas<<setw(20)<<left<<temp.pavarde; 
-        cout<<setw(20)<<fixed<<setprecision(2)<<galutinisVID(temp)<<setprecision(2)<<galutinisMed(temp)<<endl;
-    
-}
+        } 
+    return ((0.4*mediana)+(0.6*temp.egzas));
+}   
+   
 bool sortPavarde(studentukas& a, studentukas& b)
 {
     return a.pavarde<b.pavarde;
+}
+bool sortVardas(studentukas&a, studentukas&b)
+{
+    return a.vardas<b.vardas;
+}
+void spausdinimas(studentukas &temp)//duomenu spausdinimui 
+{
+try//exception handling 2
+{
+    cout<<setw(30)<<left<<temp.vardas<<setw(30)<<left<<temp.pavarde; 
+    if(temp.pazymiukai.empty())
+    {  
+     throw runtime_error("--------------Truksta nd pazymiu---------------");
+    }
+    else{
+        cout<<setw(30)<<fixed<<setprecision(2)<<galutinisVID(temp)<<setw(30)<<fixed<<setprecision(2)<<galutinisMed(temp)<<endl;
+    }
+}catch(const runtime_error& e)
+{
+    cerr<<e.what()<<endl;
+}
+        
 }
 
 void mix(string read_studentukas, string write_studentukas)
 {
     vector<studentukas> stud;
     studentukas laik;
-    string line;
+    string line,ats;
     bool first_line=true;
+    stud.reserve(1000000);
     ifstream open_f(read_studentukas);
-
+     if(!open_f.is_open())
+    {
+        cerr<<"Nepavyko nuskaityti failo: "<<read_studentukas<<endl;
+        while(!open_f.is_open())
+        {
+            cout<<"Irasykite dar karta: ";
+            cin>>read_studentukas;
+            open_f.open(read_studentukas);
+        }
+    }
           while(getline(open_f,line))
           {
             if(first_line)
@@ -189,20 +199,32 @@ void mix(string read_studentukas, string write_studentukas)
             istringstream iss(line);
             iss>>laik.vardas>>laik.pavarde;
             int paz;
-                while(iss>>paz)
-                {
-                    laik.pazymiukai.push_back(paz);
-                }
-                laik.egzas=laik.pazymiukai.back();
-                laik.pazymiukai.pop_back();
+            while(iss>>paz)
+            {
+                laik.pazymiukai.push_back(paz);
+            }
+            laik.egzas=laik.pazymiukai.back();
+            laik.pazymiukai.pop_back();
             stud.push_back(laik);
             laik.pazymiukai.clear();
             laik.egzas=0;
-        }
-
+    }
     open_f.close();
     string outputas=" ";
-    sort(stud.begin(),stud.end(),sortPavarde);
+    while(ats!="v"&&ats!="p")
+    {
+        cout<<"Rusiuoti pagal varda ar pavarde?(v/p) ";
+        cin>>ats;
+    }
+    if(ats=="v")
+    {
+        sort(stud.begin(),stud.end(),sortVardas);
+    }
+    else if(ats=="p")
+    {
+        sort(stud.begin(),stud.end(),sortPavarde);
+    }
+    
 
     for (auto vp = stud.begin(); vp !=stud.end();++vp) 
     {
@@ -210,10 +232,9 @@ void mix(string read_studentukas, string write_studentukas)
     }
 
     ofstream out(write_studentukas);
- 
-    out<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis(vid)"<<setw(20)<<left<<"Galutinis(med)"<<endl;
-    out<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<endl; 
     
+    out<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis(vid)"<<setw(20)<<left<<"Galutinis(med)"<<endl;
+    out<<setw(20)<<"---------------------------------------------------------------------------"<<endl; 
 
     for(auto& laik: stud)
     {
@@ -232,12 +253,19 @@ int main()
 { 
     vector<studentukas> mas;
     studentukas laikinas;
-    cout<<"duomenu ivedimas ranka(i) ar nuskaitymas is failo(f)?(i/f)";
-    cin>>ats;
+    string pavadinimas,ats;
+    while(ats!="f"&&ats!="i")
+    {
+        cout<<"duomenu ivedimas ranka(i) ar nuskaitymas is failo(f)?(i/f)";
+        cin>>ats; 
+    }
     if(ats=="f")
     {
-        mix("kursiokai.txt","output.txt");     
-        cout<<"Studentu duomenys is 'kursiokai.txt sekmingai isvesti i faila 'output.txt'";
+        cout<<"Irasykite failo pavadinima: ";
+        cin>>pavadinimas;
+        mix(pavadinimas,"output.txt");  
+        
+        cout<<"Studentu duomenys sekmingai isvesti i faila 'output.txt'";
     }
     else if(ats=="i")
     {
@@ -254,8 +282,8 @@ int main()
         }
     }while(ats=="t");
 
-    cout<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis(vid)"<<setw(20)<<left<<"Galutinis(med)"<<endl;
-    cout<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<setw(20)<<"---------------"<<endl;
+    cout<<setw(30)<<left<<"Vardas"<<setw(30)<<left<<"Pavarde"<<setw(30)<<left<<"Galutinis(vid)"<<setw(30)<<left<<"Galutinis(med)"<<endl;
+    cout<<setw(20)<<"-----------------------------------------------------------------------------------------------------------"<<endl; 
     for(auto &i: mas)
     {
         spausdinimas(i); 
@@ -264,7 +292,6 @@ int main()
    {
       i.pazymiukai.clear();
    }
- 
    mas.clear();   
-    }
+}
 }
