@@ -171,7 +171,7 @@ try//exception handling 2
         
 }
 
-void mix(string read_studentukas, string write_studentukas)
+void skaitymas(string read_studentukas, string write_studentukas)
 {
     vector<studentukas> stud;
     studentukas laik;
@@ -189,7 +189,10 @@ void mix(string read_studentukas, string write_studentukas)
             open_f.open(read_studentukas);
         }
     }
-          while(getline(open_f,line))
+    while(open_f)
+    {
+        
+        while(getline(open_f,line))
           {
             if(first_line)
             {
@@ -209,37 +212,32 @@ void mix(string read_studentukas, string write_studentukas)
             laik.pazymiukai.clear();
             laik.egzas=0;
     }
-    open_f.close();
-    string outputas=" ";
-    while(ats!="v"&&ats!="p")
+          
+    }
+    open_f.close();   
+  while(ats!="v"&&ats!="p")
     {
         cout<<"Rusiuoti pagal varda ar pavarde?(v/p) ";
         cin>>ats;
-    }
-    if(ats=="v")
+    } 
+   if(ats=="v")
     {
         sort(stud.begin(),stud.end(),sortVardas);
     }
-    else if(ats=="p")
+     else if(ats=="p")
     {
         sort(stud.begin(),stud.end(),sortPavarde);
-    }
-    
-
-    for (auto vp = stud.begin(); vp !=stud.end();++vp) 
-    {
-        outputas+= vp->vardas +" "+ vp->pavarde +'\n';
-    }
-
+    } 
+ 
     ofstream out(write_studentukas);
-    
+    cout<<"Apdorojami duomenys...";
     out<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis(vid)"<<setw(20)<<left<<"Galutinis(med)"<<endl;
     out<<setw(20)<<"---------------------------------------------------------------------------"<<endl; 
 
     for(auto& laik: stud)
     {
-    out<<setw(20)<<left<<laik.vardas<<setw(20)<<left<<laik.pavarde; 
-    out<<setw(20)<<left<<fixed<<setprecision(2)<<galutinisVID(laik)<<setw(20)<<left<<fixed<<setprecision(2)<<galutinisMed(laik)<<endl;
+    out<<setw(20)<<left<<laik.vardas<<setw(20)<<left<<laik.pavarde;  
+    out<<setw(20)<<left<<fixed<<setprecision(2)<<galutinisVID(laik)<<setw(20)<<left<<fixed<<setprecision(2)<<galutinisMed(laik)<<endl; 
     }
     for(auto& i: stud)
     {
@@ -251,6 +249,7 @@ void mix(string read_studentukas, string write_studentukas)
 
 int main()
 { 
+    
     vector<studentukas> mas;
     studentukas laikinas;
     string pavadinimas,ats;
@@ -263,9 +262,9 @@ int main()
     {
         cout<<"Irasykite failo pavadinima: ";
         cin>>pavadinimas;
-        mix(pavadinimas,"output.txt");  
+        skaitymas(pavadinimas,"output.txt");  
         
-        cout<<"Studentu duomenys sekmingai isvesti i faila 'output.txt'";
+        cout<<"\nStudentu duomenys sekmingai isvesti i faila 'output.txt'";
     }
     else if(ats=="i")
     {
@@ -294,4 +293,6 @@ int main()
    }
    mas.clear();   
 }
+
+return 0;
 }
