@@ -7,8 +7,8 @@ Abu jie kreipiasi į failą mylib.h.
 ----------------------------------------------------------
 2 versijoje kodas vectorprog.cpp papildytas 
 - duomenų skaitymu iš failo
-- duomenų išvedimu lentelės pavidalu su galutiniu pažymiu(vidurkiu ir atskirai mediana) ir rūšiavimu pagal vardą.
--try-catch exception handling
+- duomenų išvedimu lentelės pavidalu su galutiniu pažymiu(vidurkiu ir atskirai mediana) ir rūšiavimu pagal vardą
+- try catch exception handling
 ----------------------------------------------------------
 Papildomi du failai(kursiokai.txt, output.txt) įkelti kaip pavyzdys.
  
