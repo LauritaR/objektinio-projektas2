@@ -6,6 +6,19 @@ struct studentukas{
     int egzas;
 };
 
+string randName()
+{
+    int nameIn=rand()%5;
+    string names[5]= {"Perkunija", "Gojus", "Elektra", "Dziugimantas", "Lyja"};
+    return names[nameIn];
+}
+string randSur()
+{
+    int surIn=rand()%5;
+    string surn[5]= {"Romero", "Garcia", "Moro", "Petersas", "Lehmann"};
+    return surn[surIn];
+}
+
 void pildyk(studentukas &temp)//funkcija pildyti studentuko duomenis
 {
     string ats;
@@ -21,7 +34,6 @@ void pildyk(studentukas &temp)//funkcija pildyti studentuko duomenis
         cin>>temp.vardas>>temp.pavarde;
         int x=0;//x pazymiui
         cout<<"Iveskite pazymius(0-10): ";
-        
         while(cin>>x)//kol skaiciai irasomi
         {
             if(x<=10 && x>=0){
@@ -57,8 +69,8 @@ void pildyk(studentukas &temp)//funkcija pildyti studentuko duomenis
         else if(ats=="a")//jeigu vartotojas renkasi atsitiktini vykdomass sis kodas
         {
         srand(time(NULL));    
-        int size=0,vardasIRpav=(rand()%5)+1;
-        switch (vardasIRpav)
+        int size=0,vardasIRpav=(rand()%5)+1 ;
+         /* switch (vardasIRpav)
         {
         case 1:
             temp.vardas="Perkunija";temp.pavarde="Romero ";
@@ -77,8 +89,10 @@ void pildyk(studentukas &temp)//funkcija pildyti studentuko duomenis
             break;
         default:
             break;
-        }
-       cout<<"Kiek nd pazymiu norite tureti?";
+        }  */
+        temp.vardas=randName();
+        temp.pavarde=randSur(); 
+        cout<<"Kiek nd pazymiu norite tureti?";
        while(true)
        {
         try//exception handling 1
@@ -110,7 +124,9 @@ void pildyk(studentukas &temp)//funkcija pildyti studentuko duomenis
         int m=(rand()%10)+1;
         cout<<m<<endl;
         temp.egzas=m;
+    
     }
+    
 }
 
 
@@ -144,6 +160,10 @@ float galutinisMed(studentukas &temp)//medianos skaiciavimas
     return ((0.4*mediana)+(0.6*temp.egzas));
 }   
    
+bool sortGal(studentukas& a, studentukas& b)
+{
+    return galutinisVID(a)<galutinisVID(b);
+}
 bool sortPavarde(studentukas& a, studentukas& b)
 {
     return a.pavarde<b.pavarde;
@@ -171,11 +191,11 @@ try//exception handling 2
         
 }
 
-void skaitymas(string read_studentukas, string write_studentukas)
+ void skaitymas(string read_studentukas,vector<studentukas>&stud)
 {
-    vector<studentukas> stud;
+    auto start = std::chrono::high_resolution_clock::now();
     studentukas laik;
-    string line,ats;
+    string line;
     bool first_line=true;
     stud.reserve(1000000);
     ifstream open_f(read_studentukas);
@@ -210,9 +230,13 @@ void skaitymas(string read_studentukas, string write_studentukas)
             laik.egzas=0;
     }
     open_f.close();
-   while(ats!="v"&&ats!="p")
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> difference = end - start;
+    cout <<"duomenu nuskaitymas is failo uztruko: " << difference.count() << " s\n";
+    string ats;
+/*     while(ats!="v"&&ats!="p"&&ats!="g")
     {
-        cout<<"Rusiuoti pagal varda ar pavarde?(v/p) ";
+        cout<<"Rusiuoti pagal varda,pavarde ar galutini(vid)?(v/p/g) ";
         cin>>ats;
     } 
     if(ats=="v")
@@ -224,21 +248,109 @@ void skaitymas(string read_studentukas, string write_studentukas)
     {
         sort(stud.begin(),stud.end(),sortPavarde);
     } 
- 
+    else{} */
+        sort(stud.begin(),stud.end(),sortGal);
+    
+}
+void rasymas(string write_studentukas, vector<studentukas>& stud)
+{
+    auto start = std::chrono::high_resolution_clock::now();
     ofstream out(write_studentukas);
-    cout<<"Apdorojami duomenys...";
-    out<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis(vid)"<<setw(20)<<left<<"Galutinis(med)"<<endl;
+    cout<<"Apdorojami duomenys...\n";
+    out<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis(vid)"<<endl;
     out<<setw(20)<<"---------------------------------------------------------------------------"<<endl; 
-
+   
     for(auto& laik: stud)
     {
     out<<setw(20)<<left<<laik.vardas<<setw(20)<<left<<laik.pavarde;  
-    out<<setw(20)<<left<<fixed<<setprecision(2)<<galutinisVID(laik)<<setw(20)<<left<<fixed<<setprecision(2)<<galutinisMed(laik)<<endl; 
+    out<<setw(20)<<left<<fixed<<setprecision(2)<<galutinisVID(laik)<<endl; 
     }
+   
     for(auto& i: stud)
     {
         i.pazymiukai.clear();
+        i.pazymiukai.shrink_to_fit();
     }
     stud.clear();
+    stud.shrink_to_fit();
     out.close() ;  
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> difference = end - start;
+    cout << "Irasu rasymas uztruko: " << difference.count() << " s\n";
 }
+
+
+
+void fileGen(string& filename)
+{
+    int size,filesize; 
+    cout<<"Kiek irasu? ";
+    cin>>filesize;
+    cout<<"Kiek pazymiu? ";
+    cin>>size;
+
+    auto start = std::chrono::high_resolution_clock::now();
+    ofstream fin(filename);
+
+    fin<<left<<setw(15)<<"Vardas"<<setw(15)<<right<<"Pavarde";
+    for(int i=1;i<=size;i++)
+    {
+        fin<<setw(7)<<"ND"<<i; 
+    }        
+    fin<<setw(7)<<"Egz."<<endl;
+    srand(time(NULL));
+    for(int i=1;i<=filesize;i++)
+    {   stringstream output;
+        string name=randName();
+        string surname=randSur();
+
+        output<<left<<setw(15)<<name<<setw(15)<<right<<surname;
+        
+        for(int j=1;j<=size;j++)
+        {
+            int r=(rand()%10)+1;
+            output<<right<<setw(8)<<r; 
+        }
+        int m=(rand()%10)+1;
+        output<<right<<setw(7)<< m<<endl;
+        fin<<output.str();
+    }
+    fin.close();
+    auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> difference = end - start;
+        cout <<filesize<< " irasu generavimas uztruko: " << difference.count() << " s\n";
+}
+
+void skirstymas(string filename)
+{
+    auto start = std::chrono::high_resolution_clock::now();
+    vector<studentukas> stud;
+    skaitymas(filename,stud);
+    
+    vector<studentukas> vargseliai;
+    vector<studentukas> saunuoliai;
+    vargseliai.reserve(stud.size());
+    saunuoliai.reserve(stud.size());
+ 
+    for(auto& laik:stud)
+    {
+        if(galutinisVID(laik)<5.0)
+        {
+                vargseliai.push_back(laik);
+            
+        }
+        else 
+            {
+               saunuoliai.push_back(laik); 
+            }
+            
+    }
+    
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> difference = end - start;
+    cout << "Studentu rusiavimas uztruko: " << difference.count() << " s\n";  
+    rasymas ("saunuoliai.txt",saunuoliai);
+    rasymas ("vargseliai.txt",vargseliai);
+  
+}
+
