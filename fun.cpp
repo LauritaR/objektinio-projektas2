@@ -22,6 +22,7 @@ string randSur()
 void pildyk(studentukas &temp)//funkcija pildyti studentuko duomenis
 {
     string ats;
+
     while((ats!="r")&&( ats!="a"))//uzklausa kokiu budu vartotojas nori irasyti pazymius, jeigu atsako nei a nei r-prasoma is naujo
     {
         cout<<"Rankinis ivedimas ar atsitiktiniai skaiciai?(r/a)";
@@ -69,27 +70,7 @@ void pildyk(studentukas &temp)//funkcija pildyti studentuko duomenis
         else if(ats=="a")//jeigu vartotojas renkasi atsitiktini vykdomass sis kodas
         {
         srand(time(NULL));    
-        int size=0,vardasIRpav=(rand()%5)+1 ;
-         /* switch (vardasIRpav)
-        {
-        case 1:
-            temp.vardas="Perkunija";temp.pavarde="Romero ";
-            break;
-        case 2: 
-            temp.vardas="Gojus";temp.pavarde="Garcia ";
-            break;
-        case 3:
-            temp.vardas="Elektra";temp.pavarde="Moro ";
-            break;
-        case 4:
-            temp.vardas="Dziugimantas";temp.pavarde="Petersas ";
-            break;
-        case 5: 
-            temp.vardas="Lyja";temp.pavarde="Lehmann ";
-            break;
-        default:
-            break;
-        }  */
+        int size=0;
         temp.vardas=randName();
         temp.pavarde=randSur(); 
         cout<<"Kiek nd pazymiu norite tureti?";
@@ -103,6 +84,7 @@ void pildyk(studentukas &temp)//funkcija pildyti studentuko duomenis
             throw "Neteisinga ivestis, reikia teigiamo skaiciaus: ";
             }
             break;
+           
         }
         catch(const char* msg)     
         {
@@ -124,9 +106,7 @@ void pildyk(studentukas &temp)//funkcija pildyti studentuko duomenis
         int m=(rand()%10)+1;
         cout<<m<<endl;
         temp.egzas=m;
-    
-    }
-    
+    }  
 }
 
 
@@ -254,7 +234,7 @@ try//exception handling 2
 }
 void rasymas(string write_studentukas, vector<studentukas>& stud)
 {
-    auto start = std::chrono::high_resolution_clock::now();
+   /*  auto start = std::chrono::high_resolution_clock::now(); */
     ofstream out(write_studentukas);
     cout<<"Apdorojami duomenys...\n";
     out<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis(vid)"<<endl;
@@ -274,10 +254,10 @@ void rasymas(string write_studentukas, vector<studentukas>& stud)
     stud.clear();
     stud.shrink_to_fit();
     out.close() ;  
-    auto end = std::chrono::high_resolution_clock::now();
+    /* auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> difference = end - start;
-    cout << "Irasu rasymas uztruko: " << difference.count() << " s\n";
-}
+    cout << "Irasu rasymas uztruko: " << difference.count() << " s\n";*/
+} 
 
 
 
@@ -349,8 +329,13 @@ void skirstymas(string filename)
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> difference = end - start;
     cout << "Studentu rusiavimas uztruko: " << difference.count() << " s\n";  
+
+    start = std::chrono::high_resolution_clock::now();
     rasymas ("saunuoliai.txt",saunuoliai);
     rasymas ("vargseliai.txt",vargseliai);
+    end = std::chrono::high_resolution_clock::now();
+   difference = end - start;
+   cout << "Rasymas uztruko: " << difference.count() << " s\n";  
   
 }
 
