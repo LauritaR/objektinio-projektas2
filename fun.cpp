@@ -263,7 +263,6 @@ void rasymas(string write_studentukas, vector<studentukas>& stud) {
 
     char eilute[60];
     for (auto& laik : stud) {
-       /*  memset(buffer, 0, sizeof(buffer)); */
         sprintf(eilute, "%-20s%-20s%-.2f\n", laik.vardas.c_str(), laik.pavarde.c_str(), galutinisVID(laik));
         out<<eilute;
     }
