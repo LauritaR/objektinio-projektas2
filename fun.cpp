@@ -5,7 +5,6 @@ struct studentukas{
     vector<int> pazymiukai; //struktura objektams saugoti
     int egzas;
 };
-
 string randName()
 {
     int nameIn=rand()%5;
@@ -232,9 +231,8 @@ try//exception handling 2
         sort(stud.begin(),stud.end(),sortGal);
     
 }
-void rasymas(string write_studentukas, vector<studentukas>& stud)
+/* void rasymas(string write_studentukas, vector<studentukas>& stud)
 {
-   /*  auto start = std::chrono::high_resolution_clock::now(); */
     ofstream out(write_studentukas);
     cout<<"Apdorojami duomenys...\n";
     out<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis(vid)"<<endl;
@@ -253,12 +251,25 @@ void rasymas(string write_studentukas, vector<studentukas>& stud)
     }
     stud.clear();
     stud.shrink_to_fit();
-    out.close() ;  
-    /* auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> difference = end - start;
-    cout << "Irasu rasymas uztruko: " << difference.count() << " s\n";*/
+    out.close() ; 
 } 
+ */
+void rasymas(string write_studentukas, vector<studentukas>& stud) {
+    ofstream out(write_studentukas);
+    cout << "Apdorojami duomenys...\n";
+    out<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis(vid)"<<endl;
+    out<<setw(20)<<"---------------------------------------------------------------------------"<<endl; 
+   
 
+    char eilute[60];
+    for (auto& laik : stud) {
+       /*  memset(buffer, 0, sizeof(buffer)); */
+        sprintf(eilute, "%-20s%-20s%-.2f\n", laik.vardas.c_str(), laik.pavarde.c_str(), galutinisVID(laik));
+        out<<eilute;
+    }
+
+    out.close();
+}
 
 
 void fileGen(string& filename)
@@ -312,23 +323,22 @@ void skirstymas(string filename)
     vargseliai.reserve(stud.size());
     saunuoliai.reserve(stud.size());
  
-    for(auto& laik:stud)
+   for(auto& laik:stud)
     {
         if(galutinisVID(laik)<5.0)
         {
                 vargseliai.push_back(laik);
-            
         }
         else 
             {
                saunuoliai.push_back(laik); 
-            }
-            
+            }      
     }
+     
     
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> difference = end - start;
-    cout << "Studentu rusiavimas uztruko: " << difference.count() << " s\n";  
+    cout << "Studentu skirstymas uztruko: " << difference.count() << " s\n";  
 
     start = std::chrono::high_resolution_clock::now();
     rasymas ("saunuoliai.txt",saunuoliai);
