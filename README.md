@@ -1,1 +1,2 @@
-# objektinio-projektas
+# Objektinis programavimas 1 užduotis
+
