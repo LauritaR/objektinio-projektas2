@@ -231,29 +231,7 @@ try//exception handling 2
         sort(stud.begin(),stud.end(),sortGal);
     
 }
-/* void rasymas(string write_studentukas, vector<studentukas>& stud)
-{
-    ofstream out(write_studentukas);
-    cout<<"Apdorojami duomenys...\n";
-    out<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis(vid)"<<endl;
-    out<<setw(20)<<"---------------------------------------------------------------------------"<<endl; 
-   
-    for(auto& laik: stud)
-    {
-    out<<setw(20)<<left<<laik.vardas<<setw(20)<<left<<laik.pavarde;  
-    out<<setw(20)<<left<<fixed<<setprecision(2)<<galutinisVID(laik)<<endl; 
-    }
-   
-    for(auto& i: stud)
-    {
-        i.pazymiukai.clear();
-        i.pazymiukai.shrink_to_fit();
-    }
-    stud.clear();
-    stud.shrink_to_fit();
-    out.close() ; 
-} 
- */
+
 void rasymas(string write_studentukas, vector<studentukas>& stud) {
     ofstream out(write_studentukas);
     cout << "Apdorojami duomenys...\n";
