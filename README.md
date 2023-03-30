@@ -5,7 +5,9 @@
 5 versijoje kodas pakeistas:
 sukurtos 3 atskiros programos
 -programa išsauganti duomenis į std::list
+
 -programa išsauganti duomenis į std::vector
+
 -programa išsauganti duomenis į std::deque
 
 --------------------------------------------------------
