@@ -2,15 +2,15 @@
 
 Naudojimosi instrukcija:
 
-- Kopijuoti repozitoriją: git clone https://github.com/LauritaR/objektinio-projektas.git
+ Kopijuoti repozitoriją: git clone https://github.com/LauritaR/objektinio-projektas.git
 
-- Pereiti į nukopijuotą repozitoriją: cd{aplanko pavadinimas}/objektinio-projektas
+ Pereiti į nukopijuotą repozitoriją: cd{aplanko pavadinimas}/objektinio-projektas
 
-- Pasirinkti norimą strategiją: cd {1strategija/2strategija}/{vector/list/deque}
+ Pasirinkti norimą strategiją: cd {1strategija/2strategija}/{vector/list/deque}
 
-- Kompiliuoti programą su Makefile pagalba: make
+ Kompiliuoti programą su Makefile pagalba: make
 
-- Paleisti programą: .\main
+ Paleisti programą: .\main
 
 --------------------------------------------------------
 V1.0
