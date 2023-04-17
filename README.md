@@ -1,8 +1,115 @@
-# Penkta versija
+# 1.0 versija
 
-Šioje subrepozitorijoje yra kuriamos programos 0.5 versija. 
+Naudojimosi instrukcija:
+
+Kopijuoti repozitoriją: git clone https://github.com/LauritaR/objektinio-projektas.git
+Pereiti į nukopijuotą repozitoriją: cd{aplanko pavadinimas}/objektinio-projektas
+Pasirinkti norimą strategiją: cd {1strategija/2strategija}/{vector/list/deque}
+Kompiliuoti programą su Makefile pagalba: make
+Paleisti programą: .\main
+
 --------------------------------------------------------
-5 versijoje kodas pakeistas:
+V1.0
+--------------------------------------------------------
+1.0 versijoje pakeista:
+- 1 strategijos aplanke yra 3 programos(deque, vector, list), kuriose funkcija *skirstymas* 
+iš bendro konteinerio skirsto studentus į du naujus konteinerius(vargšeliai ir šaunuoliai).
+- 2 strategijos aplanke yra 3 programos(deque, vector, list), kuriose funkcija *skirstymas*
+iš bendro konteinerio išrenka studentus, kurių galutinis pažymys žemesnis nei 5.0 ir perkelia į
+vargšelių konteinerį, o studentai pasilikę bendrame yra įrašomi į failą "šaunuoliai.txt".
+
+Papildomai:
+- programa vykdoma su lietuviškomis raidėmis
+- vietoje atskiros palyginimo funkcijos naudajama lambda f-ja
+- 2 strategijoje naudojami std::partition ir std::erase algoritmai  
+----------------------------------------------------------------------------------------
+Atminties sunaudojimo analizė( su 10 milijonų eilučių failu)
+-------------------------------
+
+|Iki programos paleidimo |5.3 GB iš 8 GB |
+|------------------------|---------------|
+|1 strategija            | 7.9 GB iš 8 GB|
+|2 strategija            | 6.5 GB iš 8 GB|
+------------------------------------------
+
+Spartos analizė
+---------------------------
+1 strategija 
+------------
+std::vector
+
+|Įrašų sk.   |Nuskaitymas(s)|Rūšiavimas(s)|Skirstymas(s)|
+|------------|--------------|-------------|------------ |
+|1000        |0.0032837     |0.0023148    |0.0003532    |
+|10000       |0.073733      |0.0253448    |0.0048455    |
+|100000      |0.195798      |0.321578     |0.0377872    |
+|1000000     |1.65663       |4.05832      |0.348431     |
+|10000000    |19.4092       |55.2349      |3.90934      |
+---------------------------------------------------------
+
+std::list
+
+|Įrašų sk.   |Nuskaitymas(s)|Rūšiavimas(s)|Skirstymas(s)|
+|------------|--------------|-------------|------------ |
+|1000        |0.0055231     |0.0027437    |0.0015332    |
+|10000       |0.0591407     |0.0389573    |0.0141803    |
+|100000      |0.355346      |0.51437      |0.154896     |
+|1000000     |3.16828       |6.90685      |1.4539       |
+|10000000    |31.4886       |90.0107      |20.6571      |
+---------------------------------------------------------
+
+std::deque
+
+|Įrašų sk.   |Nuskaitymas(s)|Rūšiavimas(s)|Skirstymas(s)|
+|------------|--------------|-------------|------------ |
+|1000        |0.0342992     |0.0056649    |0.0008126    |
+|10000       |0.0323018     |0.0707187    |0.0094796    |
+|100000      |0.237189      |0.90773      |0.0976827    |
+|1000000     |2.20926       |11.4736      |0.992627     |
+|10000000    |30.6344       |230.176      |110.854      |
+---------------------------------------------------------
+
+2 strategija 
+std::vector
+
+|Įrašų sk.   |Nuskaitymas(s)|Rūšiavimas(s)|Skirstymas(s)|
+|------------|--------------|-------------|------------ |
+|1000        |0.0177953     |0.0028682    |0.0002473    |
+|10000       |0.0726485     |0.0304097    |0.003065     |
+|100000      |0.204689      |0.403606     |0.0407415    |
+|1000000     |1.72707       |5.32414      |0.412657     |
+|10000000    |18.2374       |67.5887      |2.67465      |
+---------------------------------------------------------
+
+std::list
+
+|Įrašų sk.   |Nuskaitymas(s)|Rūšiavimas(s)|Skirstymas(s)|
+|------------|--------------|-------------|------------ |
+|1000        |0.0389806     |0.0025109    |0.0008075    |
+|10000       |0.0722957     |0.0396963    |0.0128341    |
+|100000      |0.38707       |0.603724     |0.188565     |
+|1000000     |3.63121       |7.93008      |1.36492      |
+|10000000    |35.2202       |94.097       |17.9615      |
+---------------------------------------------------------
+
+std::deque
+
+|Įrašų sk.   |Nuskaitymas(s)|Rūšiavimas(s)|Skirstymas(s)|
+|------------|--------------|-------------|------------ |
+|1000        |0.0568291     |0.0065319    |0.0007834    |
+|10000       |0.0648013     |0.0753264    |0.0082497    |
+|100000      |0.23531       |0.957561     |0.0851111    |
+|1000000     |2.25402       |12.5499      |0.883319     |
+|10000000    |33.7983       |250.95       |142.217      |
+---------------------------------------------------------
+
+Nors atminties išnaudojimas 2 strategijoje yra visais atvejais efektyvesnis,
+studentų skirstymo greitis ne visada yra efektyvesnis už skirstymo trukmę 1 strategijos programose.
+
+------------------------------------------------------
+V0.5
+-----------------------------------------------------
+0.5 versijoje pakeista:
 sukurtos 3 atskiros programos
 
 -programa išsauganti duomenis į std::list
@@ -18,7 +125,7 @@ Spartos analizė
 Analizei vykdyti naudojamo kompiuterio savybės: 
 -------------------------------------------------
 |CPU | Intel(R) Core(TM) i5-10300H CPU @ 2.50GHz|
-|----|------------------------------------------|
+|----|------------------------------------------| 
 
 |RAM |8.0 GB 2933 MHz SODIMM                    |
 |----|------------------------------------------|
@@ -65,7 +172,7 @@ Iš spartos analizės rezultatų galima pastebėti, kad greičiausiai programa v
 -----------------------------------------------------------------------------
 V.04 
 -----------------------------------------------------------------------------
-4 versijoje kodas pakeistas:
+0.4 versijoje kodas pakeistas:
 
 -sukurtas failų generatorius
 
@@ -98,27 +205,30 @@ Po releaso
 |10000000    |17.4462       |17.9229       |71.4164      |17.8583     |92.7657            |
 -------------------------------------------------------------------------------------------
 
---------------------------------------------------------------------------------------------
+
 V.03
 ---------------------------------------------------------------------------------------------
-3 versijoje kodas pakeistas:
+0.3 versijoje kodas pakeistas:
 - kodo reorganizavimu į kelias atskiras dalis("fun.cpp" funkcijų failas, "fun.h" su funkcijų header'iais)
 - try catch exception handling 
---------------------------------------------------------
+
 
 -----------------------------------------------------------------------------------------------
 V.02
 -----------------------------------------------------------------------------------------------
-2 versijoje kodas vectorprog.cpp papildytas 
+0.2 versijoje kodas vectorprog.cpp papildytas:
 - duomenų skaitymu iš failo
 - duomenų išvedimu lentelės pavidalu su galutiniu pažymiu(vidurkiu ir atskirai mediana) ir rūšiavimu pagal vardą
 - try catch exception handling
 
 Papildomi du failai(kursiokai.txt, output.txt) įkelti kaip pavyzdys.
---------------------------------------------------------------------------------------------------
+
 --------------------------------------------------------------------------------------------------
 V.01
 --------------------------------------------------------------------------------------------------
-Pirmoje subrepozitorijoje yra kuriamos programos 0.1 versija.
-Kodas Cmasyvas.cpp atliktas naudojant dinaminius masyvus. Kodas vectorprog.cpp atliktas naudojant vektorius. Abu jie kreipiasi į failą mylib.h.
+0.1 versijoje kodas papildytas:
+
+- Kodas Cmasyvas.cpp atliktas naudojant dinaminius masyvus. 
+- Kodas vectorprog.cpp atliktas naudojant vektorius. 
+- Abu jie kreipiasi į failą mylib.h.
  
