@@ -2,15 +2,57 @@
 
 Naudojimosi instrukcija:
 
- Kopijuoti repozitoriją: git clone https://github.com/LauritaR/objektinio-projektas.git
+ Kopijuoti repozitoriją: git clone https://github.com/LauritaR/objektinio-projektas2.git
 
- Pereiti į nukopijuotą repozitoriją: cd{aplanko pavadinimas}/objektinio-projektas
+ Pereiti į nukopijuotą repozitoriją: cd{aplanko pavadinimas}/objektinio-projektas2
 
- Pasirinkti norimą strategiją: cd {1strategija/2strategija}/{vector/list/deque}
+ Pasirinkti norimą vektorio realizaciją: cd {vector_class/vector_struct}
 
  Kompiliuoti programą su Makefile pagalba: make
 
  Paleisti programą: .\main
+
+--------------------------------------------------------
+V1.1
+--------------------------------------------------------
+1.1 versija buva sukurta naujoje repozitorijoje, bet visa ansktesnių versijų istorija išliko.
+
+Buvo išrinkta greičiausiai veikianti programa vykdoma su 2 strategija ir naudojanti std::vector konteinerį.
+Programos efektyvumo pagerinimui papildomai buvo pakeista skaitymo 
+funckija(void skaitymas(string read_studentukas, vector<studentukas>& stud)). 
+Subrepozitorijoje esantys 2 failai:
+
+- vector_class, kur struktūra(struct) studentukas pakeista į klasę(class)
+- vector_struct, kur išliko struktūra(struct), bet rezultatų palyginimo tikslumui,
+  buvo taip pat pakeista skaitymo funkcija.
+--------------------------------------------------------
+Spartos analizė
+--------------------------------------------------------
+*100.000* eilučių programa
+
+|Metodas     |Prog. laikas(s)|
+|------------|---------------|
+|class       |0.90582        |
+|struct      |0.725655       |
+
+*1.000.0000* eilučių programa
+|Metodas     |Prog. laikas(s)|
+|------------|---------------|
+|class       |8.49505        |
+|struct      |8.13277        |
+
+
+---------------------------------------------------------
+Optimizavimo flag'ų analizė
+--------------------------------------------------------
+Analizė vykdoma su 10.000.000 eilučių failu.
+
+|Flag        |Prog. laikas(s)|.exe failo dydis|
+|------------|---------------|----------------|
+|be flag'o   |101.19         |306KB           |                      
+|-O1         |93.8994        |306KB           |
+|-O2         |92.5572        |307KB           |
+|-O3         |90.8742        |309KB           |
 
 --------------------------------------------------------
 V1.0
