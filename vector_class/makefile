@@ -1,6 +1,6 @@
 main: fun.o
-	g++ -o3 -o main main.cpp fun.o
+	g++ -O3   -o main main.cpp fun.o
 fun:
-	g++ -c fun.cpp
+	g++ -O3 -c fun.cpp
 clean:
 	rm*.o main

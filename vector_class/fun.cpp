@@ -1,5 +1,54 @@
 #include "fun.h"
 
+ studentukas& studentukas::operator=(const studentukas& kitas)
+    {
+        vardas=kitas.vardas;
+        pavarde=kitas.pavarde;
+        pazymiukai=kitas.pazymiukai;
+        egzas=kitas.egzas;
+        return *this;
+    }
+
+    //move constructor
+    studentukas::studentukas(studentukas&& kitas)
+    {
+        vardas=std::move(kitas.vardas);
+        pavarde=std::move(kitas.pavarde);
+        pazymiukai=std::move(kitas.pazymiukai);
+        egzas=std::move(kitas.egzas);
+    }
+
+    //move assigment 
+    studentukas& studentukas::operator=(const studentukas&& kitas)
+    {
+        vardas=std::move(kitas.vardas);
+        pavarde=std::move(kitas.pavarde);
+        pazymiukai=std::move(kitas.pazymiukai);
+        egzas=std::move(kitas.egzas);
+        return *this;
+    }
+
+    std::istream& operator>>(std::istream& in, studentukas& stud)
+    {
+        in>>stud.vardas>>stud.pavarde;
+        stud.pazymiukai.clear();
+        int pazymys;
+        while(in>>pazymys)
+        {stud.setPazymiukai(pazymys);}
+        in.clear();
+        in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        in>>stud.egzas;
+        return in;
+    }
+
+    std::ostream& operator<<(std::ostream & out,const studentukas& stud)
+    {
+        out<<left<<setw(15)<<stud.vardas<<setw(20)<<stud.pavarde;
+        for(auto const& paz: stud.pazymiukai)
+        { out<<setw(5)<<paz;}
+        out<<setw(7)<<fixed<<setprecision(2)<<stud.galutinisVID()<<endl;
+        return out;
+    }
 
 string randName()
 {
@@ -157,26 +206,30 @@ try//exception handling 2
         {
             buff<<open_f.rdbuf();
             open_f.close();
-
+            string v1,p1;
+            vector<int> paz1;
+            int egz1;
             getline(buff, header);
             int cnt = count(header.begin(), header.end(), 'N'); 
             while (buff)
             {
                 for(int i=0;i<cnt;i++)
                 {
-                    laik.lasivinamaVieta();
-                    buff >> header; laik.setVardas(header);
-                    buff >> header; laik.setPavarde(header);
+                    laik.laisvinamaVieta();
+                    buff >> v1;/*  laik.setVardas(v1); */
+                    buff >> p1; /* laik.setPavarde(header); */
                     int paz;
                     for (int j = 0; j < cnt; j++)
                     {
                         buff >> paz;
-                        laik.setPazymiukai(paz);
+                        paz1.push_back(paz);
+                        /* laik.setPazymiukai(paz); */
                     }  
                    
-                    buff >> paz;
-                    laik.setEgzas(paz);
-                    stud.push_back(laik);
+                    buff >> egz1;
+                  /*   laik.setEgzas(paz); */
+                    stud.push_back(studentukas(v1,p1,paz1,egz1));
+                    paz1.clear();
                 }
             }
         }
