@@ -11,6 +11,12 @@ Naudojimosi instrukcija:
  Kompiliuoti programą su Makefile pagalba: make
 
  Paleisti programą: .\main
+ 
+--------------------------------------------------------
+V1.2
+--------------------------------------------------------
+
+1.2 programos versijoje buvo realizuota "Rule of five"
 
 --------------------------------------------------------
 V1.1
