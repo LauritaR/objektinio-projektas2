@@ -13,6 +13,10 @@ Naudojimosi instrukcija:
  Paleisti programą: .\main
 
 --------------------------------------------------------
+V1.2
+--------------------------------------------------------
+1.2 versijoje programa buvo realizuota "Rule of five"
+--------------------------------------------------------
 V1.1
 --------------------------------------------------------
 1.1 versija buva sukurta naujoje repozitorijoje, bet visa ansktesnių versijų istorija išliko.
