@@ -47,7 +47,7 @@ int main()
        do{
         pildyk(laikinas);
         mas.push_back(laikinas);
-        laikinas.lasivinamaVieta();
+        laikinas.laisvinamaVieta();
 
         do
         {
@@ -68,7 +68,7 @@ int main()
         }
         for(auto &i: mas) 
         {
-         i.lasivinamaVieta();
+         i.laisvinamaVieta();
         }
          mas.clear();   
     }

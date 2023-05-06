@@ -39,7 +39,22 @@ class studentukas{
     }   
     public:
 
-    studentukas():vardas(""),pavarde(""),egzas(0){}
+    studentukas():vardas(""),pavarde(""),egzas(0){}//default constructor
+    studentukas(string vardas1, string pavarde1,vector<int> paz1, int egz1):vardas(vardas1), pavarde(pavarde1), pazymiukai(std::move(paz1)), egzas(egz1){}
+    //copy constructor
+
+    studentukas(const studentukas& kitas): vardas(kitas.vardas),pavarde(kitas.pavarde), pazymiukai(kitas.pazymiukai),egzas(kitas.egzas){}
+    //copy assignment
+    studentukas& operator=(const studentukas& kitas);
+
+    //move constructor
+    studentukas(studentukas&& kitas);
+
+    //move assigment 
+    studentukas& operator=(const studentukas&& kitas);
+
+    friend std::istream& operator>>(std::istream& in, studentukas& stud);
+    friend std::ostream& operator<<(std::ostream & out,const studentukas& stud);
     //getters
     inline string getVardas() const{return vardas;}
     inline string getPavarde() const{return pavarde;}
@@ -53,13 +68,15 @@ class studentukas{
     void setPavarde(string p) { pavarde = p; }
     void setPazymiukai(int pz){ pazymiukai.push_back(pz);};
     void setEgzas(int e) { egzas = e; }
-    void lasivinamaVieta(){pazymiukai.clear();}
+    void laisvinamaVieta(){pazymiukai.clear();}
  
-    ~studentukas()
+    ~studentukas()//destructor
     {
         pazymiukai.clear();
     }
 };
+
+
 
 void pildyk(studentukas &temp);
 void spausdinimas(studentukas &temp);
