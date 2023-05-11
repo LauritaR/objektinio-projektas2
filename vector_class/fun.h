@@ -1,9 +1,20 @@
 #include "mylib.h"
 
-class studentukas{
+class zmogus{
+    protected:
+        string vardas, pavarde;
+    public:
+        zmogus(){}
+        zmogus(string vardas, string pavarde): vardas(vardas), pavarde(pavarde){}
+        virtual ~zmogus(){};
+        virtual void setVardas(string v) =0;
+        virtual void setPavarde(string p) =0;
+        inline string getVardas() const{return vardas;}
+        inline string getPavarde() const{return pavarde;} 
+};
 
+class studentukas:public zmogus{
     private:
-    string vardas, pavarde; 
     vector<int> pazymiukai; //struktura objektams saugoti
     int egzas;
     float galutinisVID()const//vidurkio skaiciavimo kodas
@@ -39,11 +50,11 @@ class studentukas{
     }   
     public:
 
-    studentukas():vardas(""),pavarde(""),egzas(0){}//default constructor
-    studentukas(string vardas1, string pavarde1,vector<int> paz1, int egz1):vardas(vardas1), pavarde(pavarde1), pazymiukai(std::move(paz1)), egzas(egz1){}
+    studentukas():zmogus{},egzas(0){}//default constructor
+    studentukas(string vardas1, string pavarde1,vector<int> paz1, int egz1):zmogus{vardas1,pavarde1}, pazymiukai(std::move(paz1)), egzas(egz1){}
     //copy constructor
 
-    studentukas(const studentukas& kitas): vardas(kitas.vardas),pavarde(kitas.pavarde), pazymiukai(kitas.pazymiukai),egzas(kitas.egzas){}
+    studentukas(const studentukas& kitas): zmogus{kitas.vardas,kitas.pavarde}, pazymiukai(kitas.pazymiukai),egzas(kitas.egzas){}
     //copy assignment
     studentukas& operator=(const studentukas& kitas);
 
@@ -58,14 +69,15 @@ class studentukas{
     //getters
     inline string getVardas() const{return vardas;}
     inline string getPavarde() const{return pavarde;}
+       
     inline vector<int> getPazymiai() const{return pazymiukai;}
     inline int getEgzas() const{return egzas;}  
     inline float getGalutinisVID() const{return galutinisVID();}
     inline float getGalutinisMED() const{return galutinisMed();} 
     bool tuscias(){ return pazymiukai.empty();} 
     //setters
-    void setVardas(string v) { vardas = v; }
-    void setPavarde(string p) { pavarde = p; }
+    void setVardas(string v) { vardas = v;}
+    void setPavarde(string p) { pavarde = p;}
     void setPazymiukai(int pz){ pazymiukai.push_back(pz);};
     void setEgzas(int e) { egzas = e; }
     void laisvinamaVieta(){pazymiukai.clear();}
@@ -75,7 +87,6 @@ class studentukas{
         pazymiukai.clear();
     }
 };
-
 
 
 void pildyk(studentukas &temp);
