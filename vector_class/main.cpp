@@ -1,5 +1,15 @@
-#include "fun.h"
+/**
 
+*@file main.cpp
+*@brief Main file for the program.
+*/
+#include "fun.h"
+/**
+
+*@brief Main function that prompts user for input and executes different functionalities of the program.
+
+*@return 0 if program executes successfully.
+*/
 int main()
 {
     SetConsoleOutputCP(CP_UTF8);

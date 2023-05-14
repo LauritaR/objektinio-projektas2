@@ -1,5 +1,15 @@
-#include "fun.h"
+/**
+ * @file fun.cpp
+ * @brief Contains the implementation of the functions declared in fun.h.
+ */
 
+#include "fun.h"
+/**
+ * @brief Overloads the assignment operator.
+ * 
+ * @param kitas The studentukas object to copy from.
+ * @return A reference to the current object.
+ */
  studentukas& studentukas::operator=(const studentukas& kitas)
     {
         vardas=kitas.vardas;
@@ -9,7 +19,11 @@
         return *this;
     }
 
-    //move constructor
+   /**
+ * @brief Move constructor.
+ * 
+ * @param kitas The studentukas object to move from.
+ */
     studentukas::studentukas(studentukas&& kitas)
     {
         vardas=std::move(kitas.vardas);
@@ -18,7 +32,12 @@
         egzas=std::move(kitas.egzas);
     }
 
-    //move assigment 
+ /**
+ * @brief Move assignment operator.
+ * 
+ * @param kitas The studentukas object to move from.
+ * @return A reference to the current object.
+ */
     studentukas& studentukas::operator=( studentukas&& kitas)
     {
         vardas=std::move(kitas.vardas);
@@ -27,7 +46,13 @@
         egzas=std::move(kitas.egzas);
         return *this;
     }
-
+/**
+ * @brief Overloads the input operator.
+ * 
+ * @param in The input stream to read from.
+ * @param stud The studentukas object to fill.
+ * @return A reference to the input stream.
+ */
     std::istream& operator>>(std::istream& in, studentukas& stud)
     {
         in>>stud.vardas>>stud.pavarde;
@@ -41,6 +66,13 @@
         return in;
     }
 
+/**
+ * @brief Overloads the output operator.
+ * 
+ * @param out The output stream to write to.
+ * @param stud The studentukas object to write.
+ * @return A reference to the output stream.
+ */
     std::ostream& operator<<(std::ostream & out,const studentukas& stud)
     {
         out<<left<<setw(15)<<stud.vardas<<setw(20)<<stud.pavarde;
@@ -49,7 +81,11 @@
         out<<setw(7)<<fixed<<setprecision(2)<<stud.galutinisVID()<<endl;
         return out;
     }
-
+/**
+ * @brief Generates a random name.
+ * 
+ * @return A string containing the generated name.
+ */
 string randName()
 {
     SetConsoleOutputCP(CP_UTF8);
@@ -57,13 +93,23 @@ string randName()
     string names[5]= {"Perkunija", "Gojus", "Elektra", "Dziugimantas", "Lyja"};
     return names[rnd()];
 }
+/**
+ * @brief Generates a random surname.
+ * 
+ * @return A string containing the generated surname.
+ */
 string randSur()
 {
     RandInt rnd(0,4);
     string surn[5]= {"Romero", "Garcia", "Moro", "Petersas", "Lehmann"};
     return surn[rnd()];
 }
+/**
 
+@brief Fills in student's information either manually or with random numbers
+
+@param temp Reference to a studentukas object
+*/
 void pildyk(studentukas &temp)//funkcija pildyti studentuko duomenis
 {
     SetConsoleOutputCP(CP_UTF8);
@@ -160,6 +206,12 @@ void pildyk(studentukas &temp)//funkcija pildyti studentuko duomenis
         temp.setEgzas(m);
     }  
 }
+/**
+ * @brief This function prints the student data to the console.
+ *
+ * @param temp A reference to the student data to be printed.
+ * @throws runtime_error if there are no marks for homework.
+ */
 void spausdinimas(studentukas &temp)//duomenu spausdinimui 
 { 
     SetConsoleOutputCP(CP_UTF8);
@@ -177,8 +229,14 @@ try//exception handling 2
 {
     cerr<<e.what()<<endl;
 }
-}
 
+}
+/**
+ * @brief This function reads student data from a file and stores it in a vector of student objects.
+ *
+ * @param read_studentukas The name of the file to be read.
+ * @param stud The vector of student objects to store the data.
+ */
  void skaitymas(string read_studentukas, vector<studentukas>& stud)
 {
     SetConsoleOutputCP(CP_UTF8);
@@ -248,7 +306,12 @@ try//exception handling 2
     difference = end - start;
     cout << "Rūšiavimas užtruko: " << difference.count() << " s\n";
 }
-
+/**
+ * @brief This function writes the student data to a file.
+ *
+ * @param write_studentukas The name of the file to be written.
+ * @param stud The vector of student objects containing the data to be written.
+ */
 void rasymas(string write_studentukas, vector<studentukas>& stud) {
      SetConsoleOutputCP(CP_UTF8);
     ofstream out;
@@ -264,7 +327,11 @@ void rasymas(string write_studentukas, vector<studentukas>& stud) {
 
     out.close();
 }
-
+/**
+ * @brief This function generates a file with random student data.
+ *
+ * @param filename The name of the file to be generated.
+ */
 
 void fileGen(string& filename)
 {   SetConsoleOutputCP(CP_UTF8);
@@ -306,7 +373,12 @@ void fileGen(string& filename)
     std::chrono::duration<double> difference = end - start;
     cout <<filesize<< "Įrašų generavimas užtruko: " << difference.count() << " s\n";
 }
+/**
 
+@brief This function reads a file with student data and separates them into two groups based on their final grade
+
+@param filename The name of the file to be read
+*/
 void skirstymas(string filename)
 {
     SetConsoleOutputCP(CP_UTF8);
