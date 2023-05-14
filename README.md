@@ -13,6 +13,7 @@ Naudojimosi instrukcija:
  Paleisti programą: .\main
 
 Įdiegimo instrukcija:
+
  Failą Setup.msi reikia atsisiųsti ir, kai atsidarys sekti
  pagal vedlio instrukcijas.
  
