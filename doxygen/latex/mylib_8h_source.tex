@@ -1,0 +1,67 @@
+\hypertarget{mylib_8h_source}{}\doxysection{mylib.\+h}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <iomanip>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <time.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <omp.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include<random>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include<locale.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <clocale>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include<deque>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <execution>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include<list>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include<Windows.h>}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{using\ }std::wcout;}
+\DoxyCodeLine{00023\ \textcolor{keyword}{using\ }std::setlocale;}
+\DoxyCodeLine{00024\ \textcolor{keyword}{using\ }std::partition;}
+\DoxyCodeLine{00025\ \textcolor{keyword}{using\ }std::exit;}
+\DoxyCodeLine{00026\ \textcolor{keyword}{using\ }std::list;}
+\DoxyCodeLine{00027\ \textcolor{keyword}{using\ }std::deque;}
+\DoxyCodeLine{00028\ \textcolor{keyword}{using\ }std::move;}
+\DoxyCodeLine{00029\ \textcolor{keyword}{using\ }std::cout;}
+\DoxyCodeLine{00030\ \textcolor{keyword}{using\ }std::cin;}
+\DoxyCodeLine{00031\ \textcolor{keyword}{using\ }std::ios;}
+\DoxyCodeLine{00032\ \textcolor{keyword}{using\ }std::endl;}
+\DoxyCodeLine{00033\ \textcolor{keyword}{using\ }std::setlocale;}
+\DoxyCodeLine{00034\ \textcolor{keyword}{using\ }std::back\_inserter;}
+\DoxyCodeLine{00035\ \textcolor{keyword}{using\ }std::left;}
+\DoxyCodeLine{00036\ \textcolor{keyword}{using\ }std::right;}
+\DoxyCodeLine{00037\ \textcolor{keyword}{using\ }std::setw;}
+\DoxyCodeLine{00038\ \textcolor{keyword}{using\ }std::copy;}
+\DoxyCodeLine{00039\ \textcolor{keyword}{using\ }std::setprecision;}
+\DoxyCodeLine{00040\ \textcolor{keyword}{using\ }std::string;}
+\DoxyCodeLine{00041\ \textcolor{keyword}{using\ }std::flush;}
+\DoxyCodeLine{00042\ \textcolor{keyword}{using\ }std::sort;}
+\DoxyCodeLine{00043\ \textcolor{keyword}{using\ }std::vector;}
+\DoxyCodeLine{00044\ \textcolor{keyword}{using\ }std::getline;}
+\DoxyCodeLine{00045\ \textcolor{keyword}{using\ }std::fixed;}
+\DoxyCodeLine{00046\ \textcolor{keyword}{using\ }std::stringstream;}
+\DoxyCodeLine{00047\ \textcolor{keyword}{using\ }std::runtime\_error;}
+\DoxyCodeLine{00048\ \textcolor{keyword}{using\ }std::ifstream;}
+\DoxyCodeLine{00049\ \textcolor{keyword}{using\ }std::ofstream;}
+\DoxyCodeLine{00050\ \textcolor{keyword}{using\ }std::cerr;}
+\DoxyCodeLine{00051\ \textcolor{keyword}{using\ }std::istringstream;}
+\DoxyCodeLine{00052\ \textcolor{keyword}{using\ }std::move;}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_rand_int}{RandInt}}\{}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{class_rand_int}{RandInt}}(\textcolor{keywordtype}{int}\ low,\textcolor{keywordtype}{int}\ high):\ mt\{rd()\},dist\{low,high\}\{\}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{int}\ operator()()\{\textcolor{keywordflow}{return}\ dist(mt);\}}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00059\ \ \ \ \ std::random\_device\ rd;}
+\DoxyCodeLine{00060\ \ \ \ \ std::mt19937\ mt;}
+\DoxyCodeLine{00061\ \ \ \ \ std::uniform\_int\_distribution<int>\ dist;}
+\DoxyCodeLine{00062\ \};}
+
+\end{DoxyCode}
