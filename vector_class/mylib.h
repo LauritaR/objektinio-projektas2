@@ -1,5 +1,8 @@
-#pragma once
+/**
 
+*@brief This header file includes necessary libraries and defines several using statements.
+*/
+#pragma once
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -50,10 +53,24 @@ using std::ofstream;
 using std::cerr;
 using std::istringstream;
 using std::move;
+/**
 
+*@brief The RandInt class generates a random integer between a given low and high value.
+*/
 class RandInt{
     public:
+    /**
+        *@brief Construct a new RandInt object with the given low and high values.
+        *
+        * @param low The lower bound for the generated integer.
+        * @param high The upper bound for the generated integer.
+    */
     RandInt(int low,int high): mt{rd()},dist{low,high}{}
+     /**
+  * @brief Generates a random integer between the low and high values.
+  * 
+  * @return int A random integer between the low and high values.
+  */
     int operator()(){return dist(mt);}
     private:
     std::random_device rd;
