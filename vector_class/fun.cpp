@@ -19,7 +19,7 @@
     }
 
     //move assigment 
-    studentukas& studentukas::operator=(const studentukas&& kitas)
+    studentukas& studentukas::operator=( studentukas&& kitas)
     {
         vardas=std::move(kitas.vardas);
         pavarde=std::move(kitas.pavarde);
@@ -211,13 +211,13 @@ try//exception handling 2
             int egz1;
             getline(buff, header);
             int cnt = count(header.begin(), header.end(), 'N'); 
-            while (buff)
+            while (buff>>v1>>p1)
             {
-                for(int i=0;i<cnt;i++)
-                {
+                
                     laik.laisvinamaVieta();
-                    buff >> v1;/*  laik.setVardas(v1); */
-                    buff >> p1; /* laik.setPavarde(header); */
+                    paz1.clear();
+        /*             buff >> v1;/*  laik.setVardas(v1); */
+                   /* buff >> p1; /* laik.setPavarde(header); */ 
                     int paz;
                     for (int j = 0; j < cnt; j++)
                     {
@@ -227,11 +227,13 @@ try//exception handling 2
                     }  
                    
                     buff >> egz1;
-                  /*   laik.setEgzas(paz); */
-                    stud.push_back(studentukas(v1,p1,paz1,egz1));
-                    paz1.clear();
+                      if (paz1.empty()) {
+                    break;
                 }
-            }
+                  /*   laik.setEgzas(paz); */
+                    stud.push_back(studentukas(std::move(laik)));
+                }
+            
         }
     }
 

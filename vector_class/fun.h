@@ -62,7 +62,7 @@ class studentukas:public zmogus{
     studentukas(studentukas&& kitas);
 
     //move assigment 
-    studentukas& operator=(const studentukas&& kitas);
+    studentukas& operator=( studentukas&& kitas);
 
     friend std::istream& operator>>(std::istream& in, studentukas& stud);
     friend std::ostream& operator<<(std::ostream & out,const studentukas& stud);
