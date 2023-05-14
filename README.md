@@ -6,17 +6,30 @@ Naudojimosi instrukcija:
 
  Pereiti į nukopijuotą repozitoriją: cd{aplanko pavadinimas}/objektinio-projektas2
 
- Pasirinkti norimą vektorio realizaciją: cd {vector_class/vector_struct}
+ Pereiti į programos realizaciją: cd vector_class
 
  Kompiliuoti programą su Makefile pagalba: make
 
  Paleisti programą: .\main
- 
 
+Įdiegimo instrukcija:
+
+ Failą Setup.msi reikia atsisiųsti ir, kai atsidarys sekti
+ pagal vedlio instrukcijas.
+ 
+-------------------------------------------------------
+V2.0
+--------------------------------------------------------
+2.0 programos versijoje:
+* pridėtas mytests.cpp failas, skirtas tikrinti skitingų programos
+funkcijų veikimą(catch.hpp pagalbinis)
+* sukurtas projekto įdiegimo failas Setup.msi
+* įkelta Doxygen dokumentacija
 --------------------------------------------------------
 V1.5
 --------------------------------------------------------
 1.5 programos versijoje buvo sukurta nauja abstract klasė *zmogus*
+--------------------------------------------------------
 --------------------------------------------------------
 V1.2
 --------------------------------------------------------
