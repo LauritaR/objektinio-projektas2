@@ -54,7 +54,7 @@ TEST_CASE("File generation works correctly", "[fileGen]") {
 
 TEST_CASE("Testing rasymas function") {
     std::vector<studentukas> stud;
-    stud.emplace_back("Jonas", "Jonaitis", std::vector<int>{10, 9, 8, 7, 10},5); 
+    stud.emplace_back("Richard", "Feynman", std::vector<int>{10, 9, 8, 7, 10},5); 
     std::ostringstream oss;
     rasymas("test.txt", stud);
     std::ifstream in("test.txt"); 
@@ -62,6 +62,6 @@ TEST_CASE("Testing rasymas function") {
     std::string output = oss.str(); 
     std::string expected = "Vardas              Pavardė            Galutinis(vid)      \n"
                            "---------------------------------------------------------------------------\n"
-                           "Jonas               Jonaitis            6.52\n"; 
+                           "Richard             Feynman             6.52\n"; 
     REQUIRE(output == expected); 
 }
