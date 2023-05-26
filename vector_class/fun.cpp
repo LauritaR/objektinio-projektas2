@@ -1,7 +1,10 @@
 #include "fun.h"
-
+//copy assignment
  studentukas& studentukas::operator=(const studentukas& kitas)
     {
+        if (&kitas == this)
+        return *this;
+
         vardas=kitas.vardas;
         pavarde=kitas.pavarde;
         pazymiukai=kitas.pazymiukai;
@@ -9,22 +12,17 @@
         return *this;
     }
 
-    //move constructor
-    studentukas::studentukas(studentukas&& kitas)
-    {
-        vardas=std::move(kitas.vardas);
-        pavarde=std::move(kitas.pavarde);
-        pazymiukai=std::move(kitas.pazymiukai);
-        egzas=std::move(kitas.egzas);
-    }
-
+   
     //move assigment 
-    studentukas& studentukas::operator=(const studentukas&& kitas)
+    studentukas& studentukas::operator=( studentukas&& kitas)
     {
-        vardas=std::move(kitas.vardas);
-        pavarde=std::move(kitas.pavarde);
-        pazymiukai=std::move(kitas.pazymiukai);
-        egzas=std::move(kitas.egzas);
+        if (&kitas == this)
+        return *this;
+        pazymiukai.clear();
+        vardas = kitas.vardas;
+        pavarde = kitas.pavarde;
+        pazymiukai = kitas.pazymiukai;
+        egzas = kitas.egzas;
         return *this;
     }
 
@@ -43,7 +41,7 @@
 
     std::ostream& operator<<(std::ostream & out,const studentukas& stud)
     {
-        out<<left<<setw(15)<<stud.vardas<<setw(20)<<stud.pavarde;
+        out<<left<<setw(20)<<stud.vardas<<setw(20)<<stud.pavarde;
         for(auto const& paz: stud.pazymiukai)
         { out<<setw(5)<<paz;}
         out<<setw(7)<<fixed<<setprecision(2)<<stud.galutinisVID()<<endl;
