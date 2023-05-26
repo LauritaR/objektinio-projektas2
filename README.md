@@ -14,7 +14,7 @@ Naudojimosi instrukcija:
 
 Įdiegimo instrukcija:
 
- Failą Setup.msi reikia atsisiųsti ir, kai atsidarys sekti
+ Failą ConsoleApplication1.msi reikia atsisiųsti ir, kai atsidarys sekti
  pagal vedlio instrukcijas.
  
 -------------------------------------------------------
@@ -23,7 +23,7 @@ V2.0
 2.0 programos versijoje:
 * pridėtas mytests.cpp failas, skirtas tikrinti skitingų programos
 funkcijų veikimą(catch.hpp pagalbinis)
-* sukurtas projekto įdiegimo failas Setup.msi
+* sukurtas projekto įdiegimo failas ConsoleApplication1.msi
 * įkelta Doxygen dokumentacija
 --------------------------------------------------------
 V1.5
