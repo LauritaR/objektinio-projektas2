@@ -1,32 +1,5 @@
 #include "fun.h"
 
- studentukas& studentukas::operator=(const studentukas& kitas)
-    {
-        vardas=kitas.vardas;
-        pavarde=kitas.pavarde;
-        pazymiukai=kitas.pazymiukai;
-        egzas=kitas.egzas;
-        return *this;
-    }
-
-    //move constructor
-    studentukas::studentukas(studentukas&& kitas)
-    {
-        vardas=std::move(kitas.vardas);
-        pavarde=std::move(kitas.pavarde);
-        pazymiukai=std::move(kitas.pazymiukai);
-        egzas=std::move(kitas.egzas);
-    }
-
-    //move assigment 
-    studentukas& studentukas::operator=(const studentukas&& kitas)
-    {
-        vardas=std::move(kitas.vardas);
-        pavarde=std::move(kitas.pavarde);
-        pazymiukai=std::move(kitas.pazymiukai);
-        egzas=std::move(kitas.egzas);
-        return *this;
-    }
 
     std::istream& operator>>(std::istream& in, studentukas& stud)
     {
