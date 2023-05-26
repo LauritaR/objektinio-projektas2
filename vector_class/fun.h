@@ -53,16 +53,36 @@ class studentukas:public zmogus{
     studentukas():zmogus{},egzas(0){}//default constructor
     studentukas(string vardas1, string pavarde1,vector<int> paz1, int egz1):zmogus{vardas1,pavarde1}, pazymiukai(std::move(paz1)), egzas(egz1){}
     //copy constructor
-
     studentukas(const studentukas& kitas): zmogus{kitas.vardas,kitas.pavarde}, pazymiukai(kitas.pazymiukai),egzas(kitas.egzas){}
     //copy assignment
-    studentukas& operator=(const studentukas& kitas);
+    studentukas& operator=(const studentukas& kitas)
+         {
+        if (&kitas == this)
+        return *this;
+
+        vardas=kitas.vardas;
+        pavarde=kitas.pavarde;
+        pazymiukai=kitas.pazymiukai;
+        egzas=kitas.egzas;
+        return *this;
+    }
 
     //move constructor
-    studentukas(studentukas&& kitas);
+    studentukas(studentukas&& kitas): zmogus{std::move(kitas.vardas),std::move(kitas.pavarde)}, pazymiukai(std::move(kitas.pazymiukai)), egzas(kitas.egzas)
+    {kitas.~studentukas();} 
 
     //move assigment 
-    studentukas& operator=(const studentukas&& kitas);
+    studentukas& operator=(const studentukas&& kitas)
+        {
+        if (&kitas == this)
+        return *this;
+        pazymiukai.clear();
+        vardas = kitas.vardas;
+        pavarde = kitas.pavarde;
+        pazymiukai = kitas.pazymiukai;
+        egzas = kitas.egzas;
+        return *this;
+    }
 
     friend std::istream& operator>>(std::istream& in, studentukas& stud);
     friend std::ostream& operator<<(std::ostream & out,const studentukas& stud);
