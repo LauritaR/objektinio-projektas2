@@ -1,7 +1,7 @@
 #include "fun.h"
 //copy assignment
- studentukas& studentukas::operator=(const studentukas& kitas)
-    {
+studentukas& studentukas::operator=(const studentukas& kitas)
+{
         if (&kitas == this)
         return *this;
 
@@ -10,23 +10,25 @@
         pazymiukai=kitas.pazymiukai;
         egzas=kitas.egzas;
         return *this;
-    }
+}
 
-   
     //move assigment 
-    studentukas& studentukas::operator=( studentukas&& kitas)
-    {
+studentukas& studentukas::operator=( studentukas&& kitas)
+{
         if (&kitas == this)
         return *this;
-        pazymiukai.clear();
         vardas = kitas.vardas;
         pavarde = kitas.pavarde;
         pazymiukai = kitas.pazymiukai;
         egzas = kitas.egzas;
+        kitas.vardas.clear();
+        kitas.pavarde.clear();
+        kitas.pazymiukai.clear();
+        kitas.egzas=0;
         return *this;
-    }
+}
 
-    std::istream& operator>>(std::istream& in, studentukas& stud)
+std::istream& operator>>(std::istream& in, studentukas& stud)
     {
         in>>stud.vardas>>stud.pavarde;
         stud.pazymiukai.clear();
@@ -39,7 +41,7 @@
         return in;
     }
 
-    std::ostream& operator<<(std::ostream & out,const studentukas& stud)
+std::ostream& operator<<(std::ostream & out,const studentukas& stud)
     {
         out<<left<<setw(20)<<stud.vardas<<setw(20)<<stud.pavarde;
         for(auto const& paz: stud.pazymiukai)

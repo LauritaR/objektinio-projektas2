@@ -48,7 +48,10 @@ class studentukas{
 
     //move constructor
     studentukas(studentukas&& kitas): vardas(std::move(kitas.vardas)),pavarde(std::move(kitas.pavarde)), pazymiukai(std::move(kitas.pazymiukai)), egzas(kitas.egzas)
-    {kitas.~studentukas();}
+    {   kitas.vardas.clear();
+        kitas.pavarde.clear();
+        kitas.pazymiukai.clear();
+        kitas.egzas=0;}
 
     //move assigment 
     studentukas& operator=( studentukas&& kitas);

@@ -3,10 +3,22 @@
 int main()
 {
     SetConsoleOutputCP(CP_UTF8);
+//rule of five testai
     vector<studentukas> mas;
     studentukas laikinas;
     string pavadinimas,ats="";
-    
+     
+    studentukas obj1("Studentas", "Studentaitis", {5,4,10}, 10);
+    studentukas obj2(obj1);
+    studentukas obj3;
+    obj3=obj1;
+    cout<<obj1<<'\n'<<obj2<<'\n'<<obj3<<'\n';
+    studentukas obj4(std::move(obj3));
+    cout<<obj3<<'\n'<<obj4<<'\n';
+    studentukas obj5;
+    obj5=std::move(obj4);
+    cout<<obj4<<'\n'<<obj5<<'\n';
+//testu pabaiga
     while(ats!="f"&&ats!="i"&&ats!="g"&&ats!="s"&&ats!="e")
     {
         cout<<"-Duomenų įvedimas ranka(i)\n-Nuskaitymas iš failo(f)\n-Failo generavimas(g)\n-Failo skirstymas(s)\n-Išeiti(e)\n----Įveskite raidę----\n";
