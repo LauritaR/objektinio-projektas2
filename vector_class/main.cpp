@@ -3,11 +3,11 @@
 int main()
 {
     SetConsoleOutputCP(CP_UTF8);
-//rule of five testai
+
     vector<studentukas> mas;
     studentukas laikinas;
     string pavadinimas,ats="";
-     
+ //rule of five testai    
     studentukas obj1("Studentas", "Studentaitis", {5,4,10}, 10);
     studentukas obj2(obj1);
     studentukas obj3;
