@@ -16,7 +16,7 @@ Naudojimosi instrukcija:
 V1.2
 --------------------------------------------------------
 
-1.2 programos versijoje buvo realizuota "Rule of five"
+1.2 programos 'vector_class' versijoje buvo realizuota "Rule of five"
 
 --------------------------------------------------------
 V1.1
