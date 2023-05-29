@@ -69,18 +69,25 @@ class studentukas:public zmogus{
 
     //move constructor
     studentukas(studentukas&& kitas): zmogus{std::move(kitas.vardas),std::move(kitas.pavarde)}, pazymiukai(std::move(kitas.pazymiukai)), egzas(kitas.egzas)
-    {kitas.~studentukas();} 
+    {   kitas.vardas.clear();
+        kitas.pavarde.clear();
+        kitas.pazymiukai.clear();
+        kitas.egzas=0;} 
 
     //move assigment 
     studentukas& operator=(const studentukas&& kitas)
         {
         if (&kitas == this)
         return *this;
-        pazymiukai.clear();
+        
         vardas = kitas.vardas;
         pavarde = kitas.pavarde;
         pazymiukai = kitas.pazymiukai;
         egzas = kitas.egzas;
+        kitas.vardas.clear();
+        kitas.pavarde.clear();
+        kitas.pazymiukai.clear();
+        kitas.egzas=0;
         return *this;
     }
 
@@ -104,7 +111,10 @@ class studentukas:public zmogus{
  
     ~studentukas()//destructor
     {
-        pazymiukai.clear();
+       vardas.clear();
+       pavarde.clear();
+       pazymiukai.clear();
+       egzas=0;
     }
 };
 
