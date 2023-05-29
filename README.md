@@ -14,7 +14,7 @@ Naudojimosi instrukcija:
 
 Įdiegimo instrukcija:
 
- Failą Setup.msi reikia atsisiųsti ir, kai atsidarys sekti
+ Failą ConsoleApplication1.msi reikia atsisiųsti ir, kai atsidarys sekti
  pagal vedlio instrukcijas.
  
 -------------------------------------------------------
