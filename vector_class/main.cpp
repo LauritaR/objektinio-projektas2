@@ -19,7 +19,14 @@ int main()
     obj5=std::move(obj4);
     cout<<obj4<<'\n'<<obj5<<'\n'; 
     //testavimo pabaiga
-    
+     //abstract class test
+    studentukas s;
+    s.setVardas("Studentas");
+    s.setPavarde("Studentaitis");
+    cout<<"Vardas: "<<s.getVardas()<<endl;
+    cout<<"Pavardė: "<<s.getPavarde()<<endl;
+    cout<<endl;
+    //testavimo pabaiga
     while(ats!="f"&&ats!="i"&&ats!="g"&&ats!="s"&&ats!="e")
     {
         cout<<"-Duomenų įvedimas ranka(i)\n-Nuskaitymas iš failo(f)\n-Failo generavimas(g)\n-Failo skirstymas(s)\n-Išeiti(e)\n----Įveskite raidę----\n";
