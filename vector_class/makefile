@@ -1,5 +1,3 @@
-FILE1=./test/catch.hpp
-FILE2=./test/mytests.cpp
 
 main: fun.o
 	g++ -O3 -o main main.cpp fun.o
