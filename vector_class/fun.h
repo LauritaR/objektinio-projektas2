@@ -6,7 +6,7 @@ class zmogus{
     public:
         zmogus(){}
         zmogus(string vardas, string pavarde): vardas(vardas), pavarde(pavarde){}
-        virtual ~zmogus(){};
+        virtual ~zmogus(){vardas.clear();pavarde.clear();};
         virtual void setVardas(string v) =0;
         virtual void setPavarde(string p) =0;
         inline string getVardas() const{return vardas;}
